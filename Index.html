@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIS AL-KHUDAMAT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --sidebar-bg: #0f172a;
+      --text-main: #334155;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --table-header-bg: #f1f5f9;
+      --input-bg: #ffffff;
+      --input-text: #334155;
+    }
+    [data-bs-theme="dark"] {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --bg-color: #0b0f19;
+      --card-bg: #1e293b;
+      --sidebar-bg: #020617;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --table-header-bg: #0f172a;
+      --input-bg: #0f172a;
+      --input-text: #f1f5f9;
+    }
+    body {
+      background-color: var(--bg-color);
+      font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .watermark-footer {
+      position: fixed;
+      bottom: 12px;
+      right: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      z-index: 1050;
+      pointer-events: none;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+    }
+    .card-custom {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+      margin-bottom: 20px;
+      transition: all 0.25s ease;
+    }
+    .card-custom:hover {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    .login-card-container {
+      width: 100%;
+      max-width: 420px;
+      margin: auto;
+    }
+    .sidebar {
+      background: var(--sidebar-bg);
+      color: #94a3b8;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+      z-index: 1040;
+      width: 260px;
+      flex-shrink: 0;
+    }
+    .sidebar h5 {
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+    .sidebar a {
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 10px;
+      margin: 6px 0;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .sidebar a i {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+    .main-content-area {
+      flex-grow: 1;
+      min-width: 0;
+      padding: 24px;
+      transition: margin-left 0.3s ease;
+    }
+    @media (max-width: 991.98px) {
+      .sidebar { display: none !important; }
+      .main-content-area { padding: 12px !important; }
+      body { font-size: 16px !important; }
+      h3 { font-size: 1.6rem !important; }
+      h4 { font-size: 1.4rem !important; }
+      h5, h6 { font-size: 1.25rem !important; }
+      .welcome-banner h4 { font-size: 1.5rem !important; }
+      .welcome-banner p { font-size: 1rem !important; }
+      .welcome-banner small, .welcome-banner span { font-size: 0.95rem !important; }
+      .btn { font-size: 1.05rem !important; padding: 12px 16px !important; font-weight: 600 !important; }
+      .btn-sm { font-size: 0.95rem !important; padding: 8px 12px !important; }
+      .form-control, .form-select { font-size: 1.05rem !important; padding: 12px 14px !important; }
+      .form-label { font-size: 1rem !important; }
+      .mobile-sidebar-drawer { background: var(--sidebar-bg) !important; color: #94a3b8 !important; width: 290px !important; }
+      .mobile-sidebar-drawer a.menu-item { font-size: 1.15rem !important; padding: 16px 20px !important; margin: 8px 0 !important; color: #94a3b8 !important; white-space: normal !important; }
+      .mobile-sidebar-drawer a.menu-item i { font-size: 1.35rem !important; width: 30px !important; }
+      .mobile-sidebar-drawer a.menu-item:hover, .mobile-sidebar-drawer a.menu-item.active { background: var(--primary-color) !important; color: white !important; }
+      .mobile-sidebar-drawer button { font-size: 1.1rem !important; padding: 14px !important; }
+      .table { font-size: 0.95rem !important; }
+      .table td, .table th { white-space: normal !important; word-break: break-word; padding: 10px 8px !important; }
+      .badge { font-size: 0.9rem !important; }
+    }
+    .btn-primary { background-color: var(--primary-color); border: none; border-radius: 10px; padding: 12px 20px; font-weight: 600; width: 100%; transition: all 0.2s; }
+    .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); }
+    .btn-success { border-radius: 10px; font-weight: 600; }
+    .btn-warning { border-radius: 10px; font-weight: 600; color: #fff; }
+    .btn-danger { border-radius: 10px; font-weight: 600; }
+    .form-control, .form-select { border-radius: 10px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--input-text); padding: 12px 14px; font-size: 14px; transition: all 0.2s; }
+    .form-control:focus, .form-select:focus { border-color: var(--primary-color); background-color: var(--input-bg); color: var(--input-text); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+    .input-group-text { background-color: var(--card-bg) !important; color: var(--text-muted) !important; border-color: var(--border-color) !important; }
+    .welcome-banner { background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); color: white; border-radius: 16px; padding: 20px 24px; box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.2); }
+    .table { font-size: 13.5px; color: var(--text-main) !important; border-color: var(--border-color) !important; }
+    .table th { font-weight: 600; color: var(--text-muted); background-color: var(--table-header-bg) !important; border-bottom: none; }
+    .table td { vertical-align: middle; padding: 12px 10px; border-color: var(--border-color) !important; }
+    .modal-content { border-radius: 16px; border: none; background-color: var(--card-bg); color: var(--text-main); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+    .school-logo { width: 65px; height: 65px; object-fit: contain; border-radius: 12px; background: white; padding: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    @media print {
+      body * { visibility: hidden !important; }
+      #printArea, #printArea * { visibility: visible !important; }
+      #printArea { 
+        position: absolute !important; 
+        left: 0 !important; 
+        top: 0 !important; 
+        width: 100% !important; 
+        background: white !important; 
+        padding: 10px !important; 
+        margin: 0 !important; 
+        display: block !important; 
+      }
+      /* Membuat gambar kop surat melebar penuh dan proporsional sesuai kertas */
+      #printArea img {
+        width: 100% !important;
+        max-height: none !important;
+        object-fit: contain !important;
+      }
+      body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .no-print { display: none !important; }
+      .watermark-footer { display: none !important; }
+    }
+    .tr-holiday { background-color: #ffe6e6 !important; color: #d9534f !important; }
+  </style>
+</head>
+<body>
+<div class="watermark-footer">
+  Created By Mas_Ganteng
+</div>
+
+<!-- Login Section -->
+<div id="loginSection" class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; padding: 15px;">
+  <div class="login-card-container">
+    <div class="card card-custom p-4 p-md-4 w-100 shadow-sm">
+      <div class="text-center mb-4">
+        <div class="mb-3 d-inline-flex justify-content-center align-items-center">
+          <img src="https://lh3.googleusercontent.com/d/1lyeZsM51-rGJIxM5WBjR92zFKeOMYKg2" alt="Logo Sekolah" class="school-logo shadow-sm" style="width: 75px; height: 75px;">
+        </div>
+        <h4 class="fw-bold mt-2">Portal Akademik</h4>
+        <p class="text-muted small">MIS AL-KHUDAMAT</p>
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-semibold">Email Akun</label>
+        <div class="input-group">
+          <span class="input-group-text border-end-0"><i class="fa-solid fa-envelope"></i></span>
+          <input type="email" id="loginEmail" class="form-control border-start-0" placeholder="Masukkan Email">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label small fw-semibold">Password</label>
+        <div class="input-group">
+          <span class="input-group-text border-end-0"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="loginPassword" class="form-control border-start-0" placeholder="Password">
+        </div>
+      </div>
+      <button onclick="handleLogin()" class="btn btn-primary w-100 shadow-sm">Masuk ke Sistem</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Dashboard Container -->
+<div id="mainDashboard" class="d-none">
+  <div class="dashboard-wrapper">
+    <!-- Sidebar Desktop -->
+    <div class="no-print d-none d-lg-block sidebar">
+      <div class="p-3 h-100 d-flex flex-column justify-content-between">
+        <div>
+          <div class="text-center py-2 mb-3 d-flex align-items-center justify-content-center gap-2">
+            <img src="https://lh3.googleusercontent.com/d/1lyeZsM51-rGJIxM5WBjR92zFKeOMYKg2" alt="Logo" class="school-logo" style="width: 42px; height: 42px;">
+            <h5 class="fw-bold m-0 text-start" style="font-size: 16px;">MIS AL-KHUDAMAT</h5>
+          </div>
+          
+          <div id="impersonationBannerDesk" class="alert alert-warning d-none py-2 px-2 text-center small mb-3 rounded-3">
+            <i class="fa-solid fa-user-shield me-1"></i> Mode Guru (Admin)
+            <button onclick="stopImpersonation()" class="btn btn-sm btn-danger w-100 mt-2 py-1">Kembali ke Admin</button>
+          </div>
+          <div class="d-flex flex-column gap-1">
+  <a href="#" onclick="switchTab('dashboard', this)" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+  <a href="#" onclick="switchTab('absensi', this)" class="menu-item"><i class="fa-solid fa-location-dot"></i> Absensi Lokasi</a>
+  <a href="#" onclick="switchTab('absen-siswa', this)" class="menu-item"><i class="fa-solid fa-clipboard-user"></i> Absensi Siswa</a>
+  <a href="#" onclick="switchTab('bpjs', this)" class="menu-item"><i class="fa-solid fa-shield-halved"></i> BPJS Guru</a>
+  <a href="#" onclick="switchTab('nilai', this)" class="menu-item"><i class="fa-solid fa-pen-to-square"></i> Nilai Siswa</a>
+  <a href="#" onclick="switchTab('siswa', this)" class="menu-item"><i class="fa-solid fa-users"></i> Daftar Siswa</a>
+  <a href="#" id="menuJournalDesk" onclick="switchTab('jurnal', this)" class="menu-item"><i class="fa-solid fa-book-open"></i> Jurnal Harian</a>
+  <a href="#" id="menuAdminOnlyDesk" onclick="switchTab('admin', this)" class="menu-item"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Admin</a>
+</div>
+        </div>
+        <div class="mt-4 pt-3 border-top border-secondary">
+          <button onclick="toggleDarkMode()" id="darkModeToggleBtnDesk" class="btn btn-outline-light w-100 mb-2 btn-sm py-2 d-flex align-items-center justify-content-center gap-2">
+            <i class="fa-solid fa-moon" id="darkModeIconDesk"></i> <span id="darkModeTextDesk">Mode Gelap</span>
+          </button>
+          <button onclick="logout()" class="btn btn-outline-danger w-100 btn-sm py-2 d-flex align-items-center justify-content-center gap-2">
+            <i class="fa-solid fa-right-from-bracket"></i> Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offcanvas Mobile Sidebar -->
+    <div class="offcanvas offcanvas-start mobile-sidebar-drawer d-lg-none" tabindex="-1" id="mobileSidebarOffcanvas">
+      <div class="offcanvas-header border-bottom border-secondary">
+        <div class="d-flex align-items-center gap-2 text-truncate">
+          <img src="https://lh3.googleusercontent.com/d/1lyeZsM51-rGJIxM5WBjR92zFKeOMYKg2" alt="Logo" class="school-logo flex-shrink-0" style="width: 40px; height: 40px;">
+          <h5 class="offcanvas-title fw-bold text-white text-truncate">MIS AL-KHUDAMAT</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column justify-content-between p-3">
+        <div>
+          <div id="impersonationBannerMob" class="alert alert-warning d-none py-2 px-2 text-center small mb-3 rounded-3">
+            <i class="fa-solid fa-user-shield me-1"></i> Mode Guru (Admin)
+            <button onclick="stopImpersonation()" class="btn btn-sm btn-danger w-100 mt-2 py-1">Kembali ke Admin</button>
+          </div>
+          <div class="d-flex flex-column gap-1">
+            <a href="#" onclick="switchTab('dashboard', this); closeMobileOffcanvas();" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="#" onclick="switchTab('absensi', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-location-dot"></i> Absensi Lokasi</a>
+            <a href="#" onclick="switchTab('absen-siswa', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-clipboard-user"></i> Absensi Siswa</a>
+            <a href="#" onclick="switchTab('bpjs', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-shield-halved"></i> BPJS Guru</a>
+            <a href="#" onclick="switchTab('nilai', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-pen-to-square"></i> Nilai Siswa</a>
+            <a href="#" onclick="switchTab('siswa', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-users"></i> Daftar Siswa</a>
+            <a href="#" id="menuJournalMob" onclick="switchTab('jurnal', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-book-open"></i> Jurnal Harian</a>
+      <a href="#" id="menuAdminOnlyMob" onclick="switchTab('admin', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Admin</a>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-top border-secondary">
+          <button onclick="toggleDarkMode(); closeMobileOffcanvas();" id="darkModeToggleBtnMob" class="btn btn-outline-light w-100 mb-2 py-2 d-flex align-items-center justify-content-center gap-2">
+            <i class="fa-solid fa-moon" id="darkModeIconMob"></i> <span id="darkModeTextMob">Mode Gelap</span>
+          </button>
+          <button onclick="logout();" class="btn btn-outline-danger w-100 py-2 d-flex align-items-center justify-content-center gap-2">
+            <i class="fa-solid fa-right-from-bracket"></i> Keluar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content-area">
+      <div class="d-lg-none no-print mb-3">
+        <div class="card card-custom p-3 d-flex flex-row align-items-center justify-content-between bg-dark text-white shadow-sm">
+          <button class="btn btn-outline-light px-3 py-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebarOffcanvas">
+            <i class="fa-solid fa-bars me-2"></i> Menu
+          </button>
+          <div class="d-flex align-items-center gap-2 text-truncate">
+            <span class="fw-bold text-truncate" style="font-size: 1.1rem;">MIS AL-KHUDAMAT</span>
+            <img src="https://lh3.googleusercontent.com/d/1lyeZsM51-rGJIxM5WBjR92zFKeOMYKg2" alt="Logo" class="school-logo flex-shrink-0" style="width: 38px; height: 38px;">
+          </div>
+        </div>
+      </div>
+
+      <div class="welcome-banner d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+          <h4 class="fw-bold m-0 mb-1">Halo, <span id="loggedInUserName">-</span> 👋</h4>
+          <p class="m-0 opacity-75">Mari! Bersama Membangun "Pendidikan Berbasis Data" (PBD)</p>
+        </div>
+        <div class="bg-white bg-opacity-15 px-3 py-2 rounded-3 text-end">
+          <span id="loggedInUserRole" class="badge bg-light text-dark mb-1">Role</span><br>
+          <small class="opacity-100" id="loggedInUserEmail">-</small>
+        </div>
+      </div>
+
+      <!-- Tab Dashboard -->
+      <div id="tab-dashboard" class="tab-content">
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="card card-custom p-4 h-100">
+              <h6 class="fw-bold mb-3"><i class="fa-solid fa-chart-simple text-primary me-2"></i>Statistik Kehadiran Guru Hari Ini</h6>
+              <div style="max-width: 260px; margin: auto;">
+                <canvas id="attendanceChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 mb-4">
+            <div class="card card-custom p-4 h-100 border-start border-danger border-4">
+              <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h6 class="fw-bold text-danger m-0"><i class="fa-solid fa-triangle-exclamation me-2"></i>Belum Bayar BPJS</h6>
+                <select id="dashboardBpjsMonth" class="form-select form-select-sm" style="width: 140px;" onchange="loadUnpaidBPJSWidget()">
+                  <option value="Januari">Januari</option><option value="Februari">Februari</option><option value="Maret">Maret</option>
+                  <option value="April">April</option><option value="Mei">Mei</option><option value="Juni">Juni</option>
+                  <option value="Juli">Juli</option><option value="Agustus">Agustus</option><option value="September">September</option>
+                  <option value="Oktober">Oktober</option><option value="November">November</option><option value="Desember">Desember</option>
+                </select>
+              </div>
+              <div class="table-responsive" style="max-height: 220px; overflow-y: auto;">
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <tr><th>No</th><th>Nama Guru</th><th>Email</th></tr>
+                  </thead>
+                  <tbody id="unpaidBpjsTableBody">
+                    <tr><td colspan="3" class="text-center text-muted py-3">Memuat data...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Absensi Guru -->
+      <div id="tab-absensi" class="tab-content d-none">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+          <h3 class="fw-bold m-0">Absensi Kehadiran & Status Guru</h3>
+          <button onclick="printAttendancePDF()" class="btn btn-outline-danger"><i class="fa-solid fa-print me-1"></i> Cetak Rekap PDF</button>
+        </div>
+        
+        <div class="card card-custom p-3 mb-4 border">
+          <h6 class="fw-bold mb-2"><i class="fa-solid fa-calendar-days me-2 text-primary"></i>Filter Rekap Absensi (Rentang Tanggal)</h6>
+          <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Tanggal Mulai</label>
+              <input type="date" id="filterStartDate" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Tanggal Selesai</label>
+              <input type="date" id="filterEndDate" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <button onclick="loadAttendanceHistoryFiltered()" class="btn btn-primary w-100 shadow-sm"><i class="fa-solid fa-filter me-1"></i> Terapkan Filter</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-custom p-4 mb-4">
+          <h5 class="fw-bold mb-3">Form Absensi Harian Guru</h5>
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Status Kehadiran</label>
+              <select id="attendanceStatusSelect" class="form-select" onchange="toggleTugasLuarInput()">
+                <option value="Hadir">Hadir (Radius 60m)</option>
+                <option value="Izin">Izin</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Tugas Luar">Tugas Luar</option>
+              </select>
+            </div>
+            <div class="col-md-8" id="keteranganContainer">
+              <label class="form-label fw-semibold" id="keteranganLabel">Keterangan Tugas Luar / Alasan Pulang Cepat</label>
+              <input type="text" id="tugasLuarKeterangan" class="form-control" placeholder="Tuliskan keterangan detail (wajib jika pulang sebelum 15.00)...">
+            </div>
+          </div>
+          <div class="d-flex gap-2 flex-wrap">
+            <button onclick="doAttendance('masuk')" class="btn btn-success flex-grow-1 py-2"><i class="fa-solid fa-right-to-bracket me-2"></i>Kirim Absen Masuk</button>
+            <button onclick="doAttendance('pulang')" class="btn btn-warning flex-grow-1 py-2"><i class="fa-solid fa-right-from-bracket me-2"></i>Absen Pulang (Jadwal 15.00)</button>
+          </div>
+        </div>
+
+        <div class="card card-custom p-4">
+          <h5 class="fw-bold mb-3">Riwayat & Rekap Absensi Pribadi</h5>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr><th>Tanggal</th><th>Nama</th><th>Jam Masuk</th><th>Jam Pulang</th><th>Status</th><th>Jarak</th><th>Aksi</th></tr>
+              </thead>
+              <tbody id="attendanceTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB ABSENSI SISWA & REKAP (OTOMATIS PILIH KELAS) -->
+      <div id="tab-absen-siswa" class="tab-content d-none">
+        <h3 class="fw-bold mb-4">Absensi Siswa & Rekapitulasi Bulanan</h3>
+        
+        <!-- Form Input Absensi Harian Siswa Otomatis Berdasarkan Kelas -->
+        <div class="card card-custom p-4 mb-4">
+          <h5 class="fw-bold mb-3"><i class="fa-solid fa-calendar-check text-primary me-2"></i>Input Absensi Harian Siswa</h5>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Pilih Kelas</label>
+              <select id="studentAttClass" class="form-select" onchange="loadStudentAttInputListByClass()">
+                <option value="">-- Pilih Kelas --</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Tanggal Absensi</label>
+              <input type="date" id="studentAttDate" class="form-control">
+            </div>
+          </div>
+          
+          <div id="studentAttInputArea" class="d-none">
+            <div class="table-responsive mb-3">
+              <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th style="width: 10%;">No.</th>
+                    <th style="width: 25%;">NISN</th>
+                    <th style="width: 45%;">Nama Siswa</th>
+                    <th class="text-center" style="width: 20%;">Status Kehadiran</th>
+                  </tr>
+                </thead>
+                <tbody id="studentAttTableBody"></tbody>
+              </table>
+            </div>
+            <button onclick="saveStudentAttendance()" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-1"></i> Simpan Absensi Siswa</button>
+          </div>
+        </div>
+
+        <!-- Rekapitulasi Absensi Bulanan Siswa -->
+        <div class="card card-custom p-4">
+          <h5 class="fw-bold mb-3"><i class="fa-solid fa-file-invoice me-2 text-primary"></i>Rekapitulasi Absensi Bulanan Siswa</h5>
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Kelas</label>
+              <select id="recapStudentClass" class="form-select">
+                <option value="">-- Pilih Kelas --</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Bulan</label>
+              <select id="recapStudentMonth" class="form-select">
+                <option value="Januari">Januari</option><option value="Februari">Februari</option><option value="Maret">Maret</option>
+                <option value="April">April</option><option value="Mei">Mei</option><option value="Juni">Juni</option>
+                <option value="Juli">Juli</option><option value="Agustus">Agustus</option><option value="September">September</option>
+                <option value="Oktober">Oktober</option><option value="November">November</option><option value="Desember">Desember</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Tahun</label>
+              <input type="number" id="recapStudentYear" class="form-control" value="2026">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              <button onclick="fetchStudentAttendanceRecap()" class="btn btn-success w-100"><i class="fa-solid fa-magnifying-glass me-1"></i> Tampilkan</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm align-middle text-center">
+              <thead class="table-light">
+                <tr>
+                  <th>NISN</th>
+                  <th class="text-start">Nama Siswa</th>
+                  <th>Hadir</th>
+                  <th>Izin</th>
+                  <th>Sakit</th>
+                  <th>Alfa</th>
+                </tr>
+              </thead>
+              <tbody id="recapStudentTableBody">
+                <tr><td colspan="6" class="text-center text-muted py-3">Pilih filter dan klik Tampilkan untuk melihat rekapitulasi.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area Cetak PDF Guru -->
+      <div id="printArea" class="d-none">
+        <div class="text-center mb-3">
+          <div class="mb-2">
+            <img src="https://lh3.googleusercontent.com/d/1auJiJRpbaAqRbf6sNWAlaGEhfbsrK5kM" alt="Logo Kop Surat" style="max-height: 70px; object-fit: contain;">
+          </div>
+          <h4 class="fw-bold m-0 text-uppercase" style="letter-spacing: 1px;">REKAPITULASI ABSENSI GURU</h4>
+          <p class="text-muted m-0 small">Sistem Informasi Akademik MIS AL-KHUDAMAT</p>
+        </div>
+        
+        <div class="mb-3">
+          <table style="width: 100%; font-size: 13px; line-height: 1.6;">
+            <tr>
+              <td style="width: 140px;"><strong>Nama Guru</strong></td>
+              <td>: <span id="printTeacherName" class="fw-bold"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Email / Akun</strong></td>
+              <td>: <span id="printTeacherEmail"></span></td>
+            </tr>
+            <tr>
+              <td><strong>Periode Rekap</strong></td>
+              <td>: <span id="printPeriodRange">Semua Riwayat</span></td>
+            </tr>
+            <tr>
+              <td><strong>Sistem Kerja</strong></td>
+              <td>: 5 Hari Kerja (Senin - Jumat)</td>
+            </tr>
+          </table>
+        </div>
+        <table class="table table-bordered align-middle" style="font-size: 12px; width: 100%; border-color: #333 !important;">
+          <thead class="table-light text-center">
+            <tr>
+              <th style="width: 8%;">Nomor</th>
+              <th style="width: 22%;">Tanggal</th>
+              <th style="width: 15%;">Jam Masuk</th>
+              <th style="width: 15%;">Jam Pulang</th>
+              <th style="width: 40%;">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="printTableBody"></tbody>
+        </table>
+        <div class="row mt-4" style="font-size: 13px;">
+          <div class="col-7"></div>
+          <div class="col-5 text-center">
+            <p class="mb-1" id="printDateString"></p>
+            <p class="mb-5">Mengetahui,<br>Guru Bersangkutan</p>
+            <br><br>
+            <p class="fw-bold text-decoration-underline mb-0" id="printSignName"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab BPJS Guru -->
+      <div id="tab-bpjs" class="tab-content d-none">
+        <h3 class="fw-bold mb-4">Rekapan BPJS Ketenagakerjaan</h3>
+        <div id="adminBpjsRecapCard" class="card card-custom p-4 mb-4 border-start border-primary border-4 d-none">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h5 class="fw-bold m-0"><i class="fa-solid fa-square-check text-primary me-2"></i>Ceklis Keikutsertaan BPJS Guru</h5>
+            <div class="d-flex gap-2">
+              <select id="adminBpjsFilterMonth" class="form-select" style="width: 140px;" onchange="loadAdminBPJSRecap()">
+                <option value="Januari">Januari</option><option value="Februari">Februari</option><option value="Maret">Maret</option>
+                <option value="April">April</option><option value="Mei">Mei</option><option value="Juni">Juni</option>
+                <option value="Juli">Juli</option><option value="Agustus">Agustus</option><option value="September">September</option>
+                <option value="Oktober">Oktober</option><option value="November">November</option><option value="Desember">Desember</option>
+              </select>
+              <input type="number" id="adminBpjsFilterYear" class="form-control" style="width: 100px;" value="2026" onchange="loadAdminBPJSRecap()">
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Guru</th>
+                  <th>Email</th>
+                  <th class="text-center">Mengikuti BPJS</th>
+                  <th>Status Pembayaran</th>
+                  <th>Tanggal Bayar</th>
+                  <th>Nominal</th>
+                </tr>
+              </thead>
+              <tbody id="adminBpjsRecapTableBody">
+                <tr><td colspan="7" class="text-center text-muted py-3">Memuat data keikutsertaan...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="bpjsFormCard" class="card card-custom p-4 mb-4 d-none">
+          <h5 class="fw-bold mb-3">Input / Rekap Bayar BPJS Guru</h5>
+          <div class="row g-3">
+            <div class="col-md-3"><select id="bpjsTargetTeacher" class="form-select"></select></div>
+            <div class="col-md-3">
+              <select id="bpjsMonth" class="form-select">
+                <option value="Januari">Januari</option><option value="Februari">Februari</option><option value="Maret">Maret</option>
+                <option value="April">April</option><option value="Mei">Mei</option><option value="Juni">Juni</option>
+                <option value="Juli">Juli</option><option value="Agustus">Agustus</option><option value="September">September</option>
+                <option value="Oktober">Oktober</option><option value="November">November</option><option value="Desember">Desember</option>
+              </select>
+            </div>
+            <div class="col-md-2"><input type="number" id="bpjsYear" class="form-control" value="2026"></div>
+            <div class="col-md-2"><input type="number" id="bpjsAmount" class="form-control" placeholder="Nominal (Rp)"></div>
+            <div class="col-md-2"><button onclick="submitBPJS()" class="btn btn-primary w-100">Catat</button></div>
+          </div>
+        </div>
+        <div class="card card-custom p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h5 class="fw-bold m-0"><i class="fa-solid fa-clock-rotate-left text-primary me-2"></i>Riwayat Keseluruhan Pembayaran BPJS</h5>
+            <div class="d-flex gap-2 align-items-center">
+              <label class="form-label fw-semibold m-0">Filter Bulan:</label>
+              <select id="historyBpjsFilterMonth" class="form-select" style="width: 150px;" onchange="loadBPJSData()">
+                <option value="">-- Semua Bulan --</option>
+                <option value="Januari">Januari</option><option value="Februari">Februari</option><option value="Maret">Maret</option>
+                <option value="April">April</option><option value="Mei">Mei</option><option value="Juni">Juni</option>
+                <option value="Juli">Juli</option><option value="Agustus">Agustus</option><option value="September">September</option>
+                <option value="Oktober">Oktober</option><option value="November">November</option><option value="Desember">Desember</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead><tr><th>Nama Guru</th><th>Bulan/Tahun</th><th>Status</th><th>Tanggal Bayar</th><th>Nominal</th></tr></thead>
+              <tbody id="bpjsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Nilai Siswa -->
+      <div id="tab-nilai" class="tab-content d-none">
+        <h3 class="fw-bold mb-4">Rekapan & Input Nilai Siswa</h3>
+        <div class="card card-custom p-4 mb-4">
+          <h5 class="fw-bold mb-3">Pilih Kelas dan Mata Pelajaran</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <select id="inputGradeClass" class="form-select" onchange="renderStudentInputList()">
+                <option value="">-- Pilih Kelas --</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select id="gradeSubject" class="form-select" onchange="resetUHInputsOnSelect()">
+                <option value="">-- Pilih Mata Pelajaran --</option>
+                <option value="Al-Qur'an dan Hadis">1. Al-Qur'an dan Hadis</option>
+                <option value="Akidah Akhlak">2. Akidah Akhlak</option>
+                <option value="Fiqih">3. Fiqih</option>
+                <option value="SKI">4. SKI</option>
+                <option value="B. Arab">5. B. Arab</option>
+                <option value="Pendidikan Pancasila">6. Pendidikan Pancasila</option>
+                <option value="B. Indonesia">7. B. Indonesia</option>
+                <option value="Matematika">8. Matematika</option>
+                <option value="IPAS">9. IPAS</option>
+                <option value="PJOK">10. PJOK</option>
+                <option value="Seni dan Budaya">11. Seni dan Budaya</option>
+                <option value="B. Inggris">12. B. Inggris</option>
+                <option value="B. Sunda">13. B. Sunda</option>
+                <option value="Tahfidz">14. Tahfidz</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 p-3 border rounded-3">
+            <h6 class="fw-bold text-secondary mb-2">Isi Kolektif Materi Ulangan Harian (Serentak)</h6>
+            <div class="row g-2">
+              <div class="col-md-3">
+                <select id="collectiveUhIndex" class="form-select">
+                  <option value="1">UH 1</option><option value="2">UH 2</option><option value="3">UH 3</option><option value="4">UH 4</option><option value="5">UH 5</option>
+                  <option value="6">UH 6</option><option value="7">UH 7</option><option value="8">UH 8</option><option value="9">UH 9</option><option value="10">UH 10</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <input type="text" id="collectiveMatText" class="form-control" placeholder="Keterangan Materi...">
+              </div>
+              <div class="col-md-3">
+                <button onclick="applyCollectiveMaterial()" class="btn btn-outline-secondary w-100">Terapkan</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="studentInputCard" class="card card-custom p-4 mb-4 d-none">
+          <h5 class="fw-bold text-primary mb-3">Daftar Siswa di Kelas <span id="selectedClassName"></span></h5>
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>NISN & Nama Siswa</th>
+                  <th>Nilai UTS & UAS</th>
+                  <th>Ulangan Harian (UH 1 - 10) Beserta Materi</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="studentInputTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card card-custom p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h5 class="fw-bold m-0">Tabel Rekapan Nilai</h5>
+            <div style="width: 220px;">
+              <select id="filterGradeClass" class="form-select" onchange="renderGradeTableFiltered()">
+                <option value="">-- Semua Kelas --</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm align-middle">
+              <thead><tr><th>NISN</th><th>Nama</th><th>Mapel</th><th>UTS</th><th>UAS</th><th>UH (Nilai & Materi)</th></tr></thead>
+              <tbody id="gradeTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Daftar Siswa -->
+      <div id="tab-siswa" class="tab-content d-none">
+        <h3 class="fw-bold mb-4">Daftar Siswa</h3>
+        <div class="card card-custom p-4">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead><tr><th>NISN</th><th>Nama Siswa</th><th>Kelas</th></tr></thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- TAB JURNAL HARIAN GURU -->
+      <div id="tab-jurnal" class="tab-content d-none">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+          <div>
+            <h3 class="fw-bold mb-1">Jurnal Harian Guru</h3>
+            <p class="text-muted mb-0">Catatan kegiatan dan laporan harian guru MIS AL-KHUDAMAT.</p>
+          </div>
+          <button onclick="loadDailyJournal()" class="btn btn-outline-primary">
+            <i class="fa-solid fa-rotate me-1"></i> Refresh
+          </button>
+        </div>
+
+        <div class="card card-custom p-4 mb-4" id="journalFormCard">
+          <h5 class="fw-bold mb-3"><i class="fa-solid fa-pen-to-square text-primary me-2"></i>Form Pengisian Jurnal</h5>
+          <input type="hidden" id="journalEditId">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Tanggal Kegiatan</label>
+              <input type="date" id="journalDate" class="form-control">
+            </div>
+            <div class="col-md-8">
+              <label class="form-label fw-semibold">Kegiatan Harian</label>
+              <textarea id="journalActivity" class="form-control" rows="2" placeholder="Tuliskan kegiatan yang dilaksanakan..."></textarea>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label fw-semibold">Hasil / Capaian Kegiatan</label>
+              <textarea id="journalResult" class="form-control" rows="2" placeholder="Tuliskan hasil kegiatan..."></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Kendala</label>
+              <textarea id="journalObstacle" class="form-control" rows="2" placeholder="Tuliskan kendala jika ada..."></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Tindak Lanjut</label>
+              <textarea id="journalFollowup" class="form-control" rows="2" placeholder="Tuliskan rencana tindak lanjut..."></textarea>
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-3 flex-wrap">
+            <button onclick="submitDailyJournal()" class="btn btn-success"><i class="fa-solid fa-floppy-disk me-1"></i> Simpan Jurnal</button>
+            <button onclick="resetJournalForm()" class="btn btn-secondary">Reset Form</button>
+          </div>
+        </div>
+
+        <div id="journalFilterCard" class="card card-custom p-4 mb-4 d-none">
+          <h5 class="fw-bold mb-3"><i class="fa-solid fa-filter text-primary me-2"></i>Filter Rekap Jurnal Guru</h5>
+          <div class="row g-3 align-items-end">
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Pilih Guru</label>
+              <select id="journalTeacherFilter" class="form-select">
+                <option value="">Semua Guru</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Tanggal Mulai</label>
+              <input type="date" id="journalStartDate" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Tanggal Selesai</label>
+              <input type="date" id="journalEndDate" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <button onclick="loadDailyJournal()" class="btn btn-primary w-100"><i class="fa-solid fa-magnifying-glass me-1"></i> Tampilkan Rekap</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-custom p-4">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <h5 class="fw-bold m-0">Riwayat dan Rekap Jurnal</h5>
+            <button onclick="printDailyJournal()" class="btn btn-outline-danger"><i class="fa-solid fa-print me-1"></i> Cetak Rekap</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>No.</th><th>Tanggal</th><th>Nama Guru</th><th>Kegiatan</th>
+                  <th>Hasil</th><th>Kendala</th><th>Tindak Lanjut</th><th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="journalTableBody">
+                <tr><td colspan="8" class="text-center text-muted">Belum ada data jurnal.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="journalTotal" class="text-muted small mt-2"></div>
+        </div>
+      </div>
+
+      <!-- Tab Admin -->
+      <div id="tab-admin" class="tab-content d-none">
+        <h3 class="fw-bold mb-4">Fitur Khusus Admin</h3>
+        <div class="col-lg-6 mb-4">
+  <div class="card card-custom p-4 h-100">
+    <h5 class="fw-bold mb-3">Tambah Guru / Pengguna</h5>
+    <input type="email" id="addTeacherEmail" class="form-control mb-2" placeholder="Email Akun">
+    <input type="password" id="addTeacherPass" class="form-control mb-2" placeholder="Password">
+    <input type="text" id="addTeacherName" class="form-control mb-2" placeholder="Nama Lengkap & Gelar">
+    
+    <!-- Bagian Dropdown Role yang Baru -->
+    <label class="form-label small fw-semibold text-muted mb-1">Role / Hak Akses</label>
+    <select id="addTeacherRole" class="form-select mb-3">
+      <option value="Guru" selected>Guru</option>
+      <option value="Kepala Sekolah">Kepala Sekolah</option>
+      <option value="Bendahara">Bendahara</option>
+      <option value="Admin">Admin</option>
+    </select>
+    
+    <button onclick="submitAddTeacher()" class="btn btn-success">Tambah Pengguna</button>
+  </div>
+</div>
+          <div class="col-lg-6 mb-4">
+            <div class="card card-custom p-4 h-100">
+              <h5 class="fw-bold mb-3">Upload Excel Data Siswa</h5>
+              <input type="file" id="excelFileInput" class="form-control mb-3" accept=".xlsx, .xls">
+              <button onclick="handleExcelUpload()" class="btn btn-primary">Upload & Import</button>
+            </div>
+          </div>
+        </div>
+        <div class="card card-custom p-4">
+          <h5 class="fw-bold mb-3">Daftar Guru & Impersonasi Login</h5>
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead><tr><th>Nama</th><th>Email</th><th>Role</th><th>Akses BPJS</th><th>Impersonasi</th></tr></thead>
+              <tbody id="adminTeacherTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Pop-up -->
+<div class="modal fade" id="appModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 360px;">
+    <div class="modal-content text-center p-4">
+      <div class="mb-3 pt-2" id="modalIconContainer"></div>
+      <h5 class="fw-bold mb-2" id="appModalTitle">Informasi</h5>
+      <p class="text-muted small mb-4" id="appModalMessage">-</p>
+      <button type="button" class="btn btn-primary w-100 py-2 rounded-3" data-bs-dismiss="modal">Mengerti</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let currentUser = null;
+  let adminSession = null;
+  let chartInstance = null;
+  let globalStudents = [];
+  let globalGrades = [];
+
+  function showPopUp(msg, type = 'info') {
+    const titleEl = document.getElementById('appModalTitle');
+    const msgEl = document.getElementById('appModalMessage');
+    const iconContainer = document.getElementById('modalIconContainer');
+    msgEl.innerText = msg;
+    if (msg.toLowerCase().includes('berhasil') || type === 'success') {
+      titleEl.innerText = 'Berhasil!';
+      iconContainer.innerHTML = `<div class="d-inline-flex p-3 rounded-circle bg-success-subtle text-success"><i class="fa-solid fa-circle-check fa-2x"></i></div>`;
+    } else if (msg.toLowerCase().includes('gagal') || msg.toLowerCase().includes('salah') || msg.toLowerCase().includes('belum') || type === 'error') {
+      titleEl.innerText = 'Perhatian';
+      iconContainer.innerHTML = `<div class="d-inline-flex p-3 rounded-circle bg-danger-subtle text-danger"><i class="fa-solid fa-triangle-exclamation fa-2x"></i></div>`;
+    } else {
+      titleEl.innerText = 'Informasi';
+      iconContainer.innerHTML = `<div class="d-inline-flex p-3 rounded-circle bg-primary-subtle text-primary"><i class="fa-solid fa-circle-info fa-2x"></i></div>`;
+    }
+    const myModal = new bootstrap.Modal(document.getElementById('appModal'));
+    myModal.show();
+  }
+
+  function closeMobileOffcanvas() {
+    const offcanvasEl = document.getElementById('mobileSidebarOffcanvas');
+    const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+    if (bsOffcanvas) {
+      bsOffcanvas.hide();
+    }
+  }
+
+  window.onload = function() {
+    const savedTheme = localStorage.getItem('school_theme') || 'light';
+    applyTheme(savedTheme);
+    const savedUser = localStorage.getItem('school_current_user');
+    const savedAdminSession = localStorage.getItem('school_admin_session');
+    
+    // Auto-fill tanggal hari ini di form absen siswa
+    const today = new Date().toISOString().split('T')[0];
+    const attDateInput = document.getElementById('studentAttDate');
+    if (attDateInput) attDateInput.value = today;
+
+    if (savedUser) {
+      currentUser = JSON.parse(savedUser);
+      if (savedAdminSession) {
+        adminSession = JSON.parse(savedAdminSession);
+      }
+      initDashboard();
+    }
+  };
+
+  function toggleDarkMode() {
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    localStorage.setItem('school_theme', newTheme);
+  }
+
+  function applyTheme(theme) {
+    const iconDesk = document.getElementById('darkModeIconDesk');
+    const textDesk = document.getElementById('darkModeTextDesk');
+    const iconMob = document.getElementById('darkModeIconMob');
+    const textMob = document.getElementById('darkModeTextMob');
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
+      if (iconDesk) iconDesk.className = 'fa-solid fa-sun';
+      if (textDesk) textDesk.innerText = 'Mode Terang';
+      if (iconMob) iconMob.className = 'fa-solid fa-sun';
+      if (textMob) textMob.innerText = 'Mode Terang';
+    } else {
+      document.documentElement.setAttribute('data-bs-theme', 'light');
+      if (iconDesk) iconDesk.className = 'fa-solid fa-moon';
+      if (textDesk) textDesk.innerText = 'Mode Gelap';
+      if (iconMob) iconMob.className = 'fa-solid fa-moon';
+      if (textMob) textMob.innerText = 'Mode Gelap';
+    }
+  }
+
+  function handleLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPassword').value;
+    if(!email || !pass) return showPopUp('Email dan Password wajib diisi!', 'error');
+    google.script.run.withSuccessHandler(res => {
+      if (res.success) {
+        currentUser = res.user;
+        localStorage.setItem('school_current_user', JSON.stringify(currentUser));
+        localStorage.removeItem('school_admin_session');
+        showPopUp('Login Berhasil! Selamat datang ' + currentUser.name, 'success');
+        initDashboard();
+      } else {
+        showPopUp(res.message, 'error');
+      }
+    }).loginUser(email, pass);
+  }
+
+  function initDashboard() {
+    document.getElementById('loginSection').classList.add('d-none');
+    document.getElementById('mainDashboard').classList.remove('d-none');
+    
+    if (adminSession) {
+      document.getElementById('impersonationBannerDesk').classList.remove('d-none');
+      document.getElementById('impersonationBannerMob').classList.remove('d-none');
+    } else {
+      document.getElementById('impersonationBannerDesk').classList.add('d-none');
+      document.getElementById('impersonationBannerMob').classList.add('d-none');
+    }
+    document.getElementById('loggedInUserName').innerText = currentUser.name;
+    document.getElementById('loggedInUserEmail').innerText = currentUser.email;
+    document.getElementById('loggedInUserRole').innerText = (adminSession ? 'Guru (via Admin)' : currentUser.role);
+    
+    const isAdminMurni = (currentUser.role === 'Admin' && !adminSession);
+    const isKepalaSekolah = (currentUser.role === 'Kepala Sekolah');
+    const isBendahara = (currentUser.role === 'Bendahara');
+
+    // Menu Kelola Admin hanya untuk Admin murni
+    document.getElementById('menuAdminOnlyDesk').style.display = isAdminMurni ? 'block' : 'none';
+    document.getElementById('menuAdminOnlyMob').style.display = isAdminMurni ? 'block' : 'none';
+    
+    // Card Rekap BPJS khusus Admin, Kepala Sekolah, atau Bendahara
+    const adminBpjsCard = document.getElementById('adminBpjsRecapCard');
+    if (isAdminMurni || isKepalaSekolah || isBendahara) {
+      adminBpjsCard.classList.remove('d-none');
+      loadAdminBPJSRecap();
+    } else {
+      adminBpjsCard.classList.add('d-none');
+    }
+    
+    // Form Input BPJS terbuka untuk Admin, Bendahara, atau yang memiliki wewenang
+    if (currentUser.canRecapBPJS || isAdminMurni || isBendahara || isKepalaSekolah) {
+      document.getElementById('bpjsFormCard').classList.remove('d-none');
+      loadTeachersDropdown();
+    }
+    
+    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const currentMonthName = months[new Date().getMonth()];
+    document.getElementById('dashboardBpjsMonth').value = currentMonthName;
+    document.getElementById('adminBpjsFilterMonth').value = currentMonthName;
+    
+    renderChart();
+    loadAttendanceData();
+    loadBPJSData();
+    loadStudentData();
+    loadUnpaidBPJSWidget();
+    if (isAdminMurni) loadTeachersList();
+  }
+
+  function switchTab(tabName, element) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
+    document.getElementById('tab-' + tabName).classList.remove('d-none');
+    document.querySelectorAll('.sidebar .menu-item, .mobile-sidebar-drawer .menu-item').forEach(el => el.classList.remove('active'));
+    if (element) {
+      element.classList.add('active');
+    }
+    const isAdminMurni = (currentUser.role === 'Admin' && !adminSession);
+    if (tabName === 'admin' && isAdminMurni) {
+      loadTeachersList();
+    }
+    if (tabName === 'jurnal') {
+      initDailyJournal();
+    }
+  }
+
+  function toggleTugasLuarInput() {
+    const status = document.getElementById('attendanceStatusSelect').value;
+    const label = document.getElementById('keteranganLabel');
+    if (status === 'Tugas Luar') {
+      label.innerText = 'Keterangan Tugas Luar';
+    } else {
+      label.innerText = 'Keterangan Tugas Luar / Alasan Pulang Cepat';
+    }
+  }
+
+  function loadUnpaidBPJSWidget() {
+    const monthInput = document.getElementById('dashboardBpjsMonth').value;
+    const currentYear = new Date().getFullYear();
+    google.script.run.withSuccessHandler(unpaidList => {
+      const tbody = document.getElementById('unpaidBpjsTableBody');
+      tbody.innerHTML = '';
+      if (!unpaidList || unpaidList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" class="text-center text-success small py-3">Semua guru sudah membayar BPJS bulan ${monthInput}!</td></tr>`;
+        return;
+      }
+      unpaidList.forEach((t, index) => {
+        tbody.innerHTML += `<tr>
+          <td>${index + 1}</td>
+          <td>${t.name}</td>
+          <td><small class="text-muted">${t.email}</small></td>
+        </tr>`;
+      });
+    }).getUnpaidBPJS(monthInput, currentYear);
+  }
+
+  function loadAdminBPJSRecap() {
+    const month = document.getElementById('adminBpjsFilterMonth').value;
+    const year = document.getElementById('adminBpjsFilterYear').value;
+    google.script.run.withSuccessHandler(list => {
+      const tbody = document.getElementById('adminBpjsRecapTableBody');
+      tbody.innerHTML = '';
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Tidak ada data guru.</td></tr>';
+        return;
+      }
+      list.forEach(item => {
+        let statusBadge = '';
+        if (!item.isParticipatingBPJS) {
+          statusBadge = `<span class="badge bg-secondary-subtle text-secondary px-2 py-1"><i class="fa-solid fa-ban me-1"></i>Tidak Mengikuti</span>`;
+        } else if (item.hasPaid) {
+          statusBadge = `<span class="badge bg-success-subtle text-success px-2 py-1"><i class="fa-solid fa-check me-1"></i>Lunas</span>`;
+        } else {
+          statusBadge = `<span class="badge bg-danger-subtle text-danger px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Belum Membayar</span>`;
+        }
+        tbody.innerHTML += `<tr>
+          <td>${item.no}</td>
+          <td><strong>${item.name}</strong></td>
+          <td><small class="text-muted">${item.email}</small></td>
+          <td class="text-center">
+            <input type="checkbox" ${item.isParticipatingBPJS ? 'checked' : ''} onchange="toggleBPJSParticipation('${item.email}', this.checked)" class="form-check-input" style="width: 20px; height: 20px; cursor: pointer;">
+          </td>
+          <td>${statusBadge}</td>
+          <td>${item.payDate}</td>
+          <td>${item.amount ? 'Rp ' + Number(item.amount).toLocaleString('id-ID') : '-'}</td>
+        </tr>`;
+      });
+    }).getAdminBPJSRecapList(month, year);
+  }
+
+  function toggleBPJSParticipation(email, status) {
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      loadAdminBPJSRecap();
+      loadUnpaidBPJSWidget();
+    }).toggleTeacherBPJSParticipation(email, status);
+  }
+
+  function loginAsTeacher(teacherEmail, teacherName, canRecap, teacherRole) {
+    if (!currentUser || currentUser.role !== 'Admin' || adminSession) {
+      return showPopUp('Fitur ini hanya dapat digunakan oleh Admin yang sedang login.', 'error');
+    }
+    adminSession = Object.assign({}, currentUser);
+    localStorage.setItem('school_admin_session', JSON.stringify(adminSession));
+    currentUser = { email: teacherEmail, name: teacherName, role: teacherRole || 'Guru', canRecapBPJS: canRecap };
+    localStorage.setItem('school_current_user', JSON.stringify(currentUser));
+    showPopUp('Berhasil berpindah ke akun guru: ' + teacherName, 'success');
+    initDashboard();
+  }
+
+  function stopImpersonation() {
+    if (adminSession) {
+      currentUser = Object.assign({}, adminSession);
+      adminSession = null;
+      localStorage.removeItem('school_admin_session');
+      localStorage.setItem('school_current_user', JSON.stringify(currentUser));
+      showPopUp('Kembali ke akun Admin.', 'success');
+      initDashboard();
+    }
+  }
+
+  function doAttendance(type) {
+    const statusAbsen = document.getElementById('attendanceStatusSelect').value;
+    const keterangan = document.getElementById('tugasLuarKeterangan').value;
+    
+    if (statusAbsen === 'Tugas Luar' && type === 'masuk' && !keterangan.trim()) {
+      return showPopUp('Harap isi keterangan tugas luar terlebih dahulu.', 'error');
+    }
+    if (type === 'pulang') {
+      const nowHour = new Date().getHours();
+      if (nowHour < 15 && !keterangan.trim()) {
+        return showPopUp('Saat ini belum pukul 15.00. Harap isi alasan pulang cepat pada kolom keterangan.', 'error');
+      }
+    }
+    
+    if (statusAbsen === 'Hadir' && type === 'masuk') {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          executeAttendance(lat, lng, type, statusAbsen, keterangan);
+        }, () => showPopUp('Gagal mengambil lokasi GPS. Pastikan GPS aktif.', 'error'), { enableHighAccuracy: true });
+      } else {
+        showPopUp('Geolokasi tidak didukung browser ini.', 'error');
+      }
+    } else {
+      executeAttendance(0, 0, type, statusAbsen, keterangan);
+    }
+  }
+
+  function executeAttendance(lat, lng, type, statusAbsen, keterangan) {
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      document.getElementById('tugasLuarKeterangan').value = '';
+      loadAttendanceData();
+      renderChart();
+    }).submitAttendance(currentUser.email, currentUser.name, lat, lng, type, statusAbsen, keterangan);
+  }
+
+  function loadAttendanceData() {
+    if (!currentUser || !currentUser.email) return;
+    const isAdmin = currentUser.role === 'Admin' && !adminSession;
+    google.script.run.withSuccessHandler(data => {
+      const tbody = document.getElementById('attendanceTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Belum ada riwayat absensi untuk akun ini.</td></tr>';
+        return;
+      }
+      data.forEach(row => {
+        let actionBtn = '-';
+        if (isAdmin) {
+          actionBtn = `<select onchange="updateAttendanceStatus(${row.rowIndex}, this.value)" class="form-select form-select-sm">
+            <option value="Hadir" ${row.status.includes('Hadir') ? 'selected' : ''}>Hadir</option>
+            <option value="Izin" ${row.status.includes('Izin') ? 'selected' : ''}>Izin</option>
+            <option value="Sakit" ${row.status.includes('Sakit') ? 'selected' : ''}>Sakit</option>
+            <option value="Tugas Luar" ${row.status.includes('Tugas Luar') ? 'selected' : ''}>Tugas Luar</option>
+            <option value="Alfa" ${row.status.includes('Alfa') ? 'selected' : ''}>Alfa</option>
+          </select>`;
+        }
+        let badgeClass = 'bg-primary-subtle text-primary';
+        if (row.status.includes('Hadir')) badgeClass = 'bg-success-subtle text-success';
+        else if (row.status.includes('Izin')) badgeClass = 'bg-warning-subtle text-warning';
+        else if (row.status.includes('Sakit')) badgeClass = 'bg-info-subtle text-info';
+        else if (row.status.includes('Alfa')) badgeClass = 'bg-danger-subtle text-danger';
+        tbody.innerHTML += `<tr>
+          <td><strong>${row.date}</strong></td>
+          <td>${row.name}</td>
+          <td><span class="badge bg-light text-dark font-monospace">${row.timeIn}</span></td>
+          <td><span class="badge bg-light text-dark font-monospace">${row.timeOut}</span></td>
+          <td><span class="badge ${badgeClass} px-2 py-1">${row.status}</span></td>
+          <td>${row.distance} m</td>
+          <td>${actionBtn}</td>
+        </tr>`;
+      });
+    }).getAttendanceHistory(currentUser.email, isAdmin);
+  }
+
+  function loadAttendanceHistoryFiltered() {
+    const startDate = document.getElementById('filterStartDate').value;
+    const endDate = document.getElementById('filterEndDate').value;
+    if (!startDate || !endDate) {
+      return showPopUp('Harap isi Tanggal Mulai dan Tanggal Selesai terlebih dahulu.', 'error');
+    }
+    google.script.run.withSuccessHandler(list => {
+      const tbody = document.getElementById('attendanceTableBody');
+      tbody.innerHTML = '';
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Tidak ada data rekap pada rentang tanggal tersebut.</td></tr>';
+        return;
+      }
+      list.forEach(row => {
+        let rowStyle = row.isHoliday ? 'style="background-color: #f8d7da; color: #842029;"' : '';
+        let badgeClass = row.isHoliday ? 'bg-danger text-white' : 'bg-primary-subtle text-primary';
+        if (row.status.includes('Hadir')) badgeClass = 'bg-success-subtle text-success';
+        
+        tbody.innerHTML += `<tr ${rowStyle}>
+          <td><strong>${row.date}</strong></td>
+          <td>${currentUser.name}</td>
+          <td>${row.timeIn}</td>
+          <td>${row.timeOut}</td>
+          <td><span class="badge ${badgeClass} px-2 py-1">${row.status}</span></td>
+          <td>-</td>
+          <td>-</td>
+        </tr>`;
+      });
+    }).getTeacherAttendanceReportRange(currentUser.email, startDate, endDate);
+  }
+
+  function printAttendancePDF() {
+    const startDate = document.getElementById('filterStartDate').value;
+    const endDate = document.getElementById('filterEndDate').value;
+    if (startDate && endDate) {
+      document.getElementById('printPeriodRange').innerText = `${startDate} s.d. ${endDate}`;
+      google.script.run.withSuccessHandler(renderPrintTable).getTeacherAttendanceReportRange(currentUser.email, startDate, endDate);
+    } else {
+      const now = new Date();
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
+      document.getElementById('printPeriodRange').innerText = `${firstDay} s.d. ${lastDay}`;
+      google.script.run.withSuccessHandler(renderPrintTable).getTeacherAttendanceReportRange(currentUser.email, firstDay, lastDay);
+    }
+  }
+
+  function renderPrintTable(data) {
+    document.getElementById('printTeacherName').innerText = currentUser.name;
+    document.getElementById('printTeacherEmail').innerText = currentUser.email;
+    document.getElementById('printSignName').innerText = currentUser.name;
+    
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const todayStr = new Date().toLocaleDateString('id-ID', options);
+    document.getElementById('printDateString').innerText = `Sumedang, ${todayStr}`;
+    
+    const printTbody = document.getElementById('printTableBody');
+    printTbody.innerHTML = '';
+    
+    if (!data || data.length === 0) {
+      printTbody.innerHTML = '<tr><td colspan="5" class="text-center py-3">Belum ada data rekap absensi.</td></tr>';
+    } else {
+      data.forEach((row, index) => {
+        let trClass = row.isHoliday ? 'tr-holiday' : '';
+        let trStyle = row.isHoliday ? 'style="background-color: #ffe6e6 !important; color: #d9534f !important;"' : '';
+        printTbody.innerHTML += `<tr class="${trClass}" ${trStyle}>
+          <td class="text-center">${index + 1}</td>
+          <td class="text-center">${row.date}</td>
+          <td class="text-center">${row.timeIn}</td>
+          <td class="text-center">${row.timeOut}</td>
+          <td>${row.status}</td>
+        </tr>`;
+      });
+    }
+    
+    const printArea = document.getElementById('printArea');
+    printArea.classList.remove('d-none');
+    setTimeout(() => {
+      window.print();
+      printArea.classList.add('d-none');
+    }, 300);
+  }
+
+  function updateAttendanceStatus(rowIndex, newStatus) {
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      loadAttendanceData();
+      renderChart();
+    }).updateAttendanceAdmin(rowIndex, newStatus);
+  }
+
+  function renderChart() {
+    google.script.run.withSuccessHandler(stats => {
+      const ctx = document.getElementById('attendanceChart').getContext('2d');
+      if (chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Hadir', 'Izin', 'Sakit', 'Tugas Luar', 'Alfa'],
+          datasets: [{
+            label: 'Jumlah Guru',
+            data: [stats.hadir, stats.izin, stats.sakit, stats.tugasLuar, stats.alfa],
+            backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444'],
+            borderWidth: 0,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false } // Menyembunyikan legenda karena label sudah ada di bawah sumbu X
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize: 1 // Memastikan skala angka bulat
+              }
+            }
+          }
+        }
+      });
+    }).getAdminStats();
+  }
+
+  function loadTeachersDropdown() {
+    google.script.run.withSuccessHandler(teachers => {
+      const select = document.getElementById('bpjsTargetTeacher');
+      select.innerHTML = '<option value="">-- Pilih Guru --</option>';
+      teachers.forEach(t => {
+        select.innerHTML += `<option value="${t.email}|${t.name}">${t.name} (${t.email})</option>`;
+      });
+      select.innerHTML += `<option value="${currentUser.email}|${currentUser.name}">Diri Sendiri (${currentUser.name})</option>`;
+    }).getTeachersList();
+  }
+
+  function submitBPJS() {
+    const targetVal = document.getElementById('bpjsTargetTeacher').value;
+    if (!targetVal) return showPopUp('Pilih guru terlebih dahulu.', 'error');
+    const parts = targetVal.split('|');
+    const month = document.getElementById('bpjsMonth').value;
+    const year = document.getElementById('bpjsYear').value;
+    const amount = document.getElementById('bpjsAmount').value;
+    
+    if(!amount) return showPopUp('Harap isi nominal BPJS.', 'error');
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      loadBPJSData();
+      const isAdminMurni = (currentUser.role === 'Admin' && !adminSession);
+      if (isAdminMurni) loadAdminBPJSRecap();
+      loadUnpaidBPJSWidget();
+    }).payBPJS(parts[0], parts[1], month, year, amount);
+  }
+
+  function loadBPJSData() {
+    const selectedMonthFilter = document.getElementById('historyBpjsFilterMonth').value;
+    google.script.run.withSuccessHandler(data => {
+      const tbody = document.getElementById('bpjsTableBody');
+      tbody.innerHTML = '';
+      
+      let filteredData = data;
+      if (selectedMonthFilter) {
+        filteredData = data.filter(row => String(row.month).trim().toLowerCase() === String(selectedMonthFilter).trim().toLowerCase());
+      }
+      if (filteredData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">Belum ada data rekapan BPJS untuk filter ini.</td></tr>';
+        return;
+      }
+      filteredData.forEach(row => {
+        tbody.innerHTML += `<tr>
+          <td>${row.name}</td><td>${row.month} ${row.year}</td>
+          <td><span class="badge bg-success-subtle text-success px-2 py-1">${row.status}</span></td>
+          <td>${row.payDate}</td><td>Rp ${Number(row.amount).toLocaleString('id-ID')}</td>
+        </tr>`;
+      });
+    }).getBPJSData(currentUser.email, currentUser.role === 'Admin', currentUser.canRecapBPJS);
+  }
+
+  // ----------------------------------------------------
+  // FUNGSI JAVASCRIPT ABSENSI SISWA OTOMATIS BERDASARKAN KELAS
+  // ----------------------------------------------------
+  function populateStudentAttClasses() {
+    const classes = [...new Set(globalStudents.map(s => s.kelas))];
+    const classSelectAtt = document.getElementById('studentAttClass');
+    const classSelectRecap = document.getElementById('recapStudentClass');
+    
+    if (classSelectAtt && classSelectRecap) {
+      classSelectAtt.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+      classSelectRecap.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+      
+      classes.forEach(cls => {
+        if (cls) {
+          classSelectAtt.innerHTML += `<option value="${cls}">${cls}</option>`;
+          classSelectRecap.innerHTML += `<option value="${cls}">${cls}</option>`;
+        }
+      });
+    }
+  }
+
+  function loadStudentAttInputListByClass() {
+    const kelas = document.getElementById('studentAttClass').value;
+    const area = document.getElementById('studentAttInputArea');
+    const tbody = document.getElementById('studentAttTableBody');
+    
+    if (!kelas) {
+      area.classList.add('d-none');
+      return;
+    }
+    
+    google.script.run.withSuccessHandler(students => {
+      area.classList.remove('d-none');
+      tbody.innerHTML = '';
+      
+      if (!students || students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">Tidak ada data siswa untuk kelas ini.</td></tr>';
+        return;
+      }
+      
+      students.forEach((st, index) => {
+        tbody.innerHTML += `<tr>
+          <td><span class="badge bg-secondary">No. ${index + 1}</span></td>
+          <td>${st.nisn}</td>
+          <td><strong>${st.nama}</strong></td>
+          <td class="text-center">
+            <select class="form-select form-select-sm student-status-input" data-nisn="${st.nisn}">
+              <option value="Hadir" selected>Hadir</option>
+              <option value="Izin">Izin</option>
+              <option value="Sakit">Sakit</option>
+              <option value="Alfa">Alfa</option>
+            </select>
+          </td>
+        </tr>`;
+      });
+    }).getStudentsByClass(kelas);
+  }
+
+function saveStudentAttendance() {
+    const kelas = document.getElementById('studentAttClass').value;
+    const dateStr = document.getElementById('studentAttDate').value;
+    
+    if (!kelas || !dateStr) {
+      return showPopUp('Pilih kelas dan tanggal absensi terlebih dahulu.', 'error');
+    }
+    
+    // Tampilkan pop-up loading
+    const titleEl = document.getElementById('appModalTitle');
+    const msgEl = document.getElementById('appModalMessage');
+    const iconContainer = document.getElementById('modalIconContainer');
+    const modalBtn = document.querySelector('#appModal .modal-content button'); // Ambil tombol di dalam modal
+    
+    titleEl.innerText = 'Menyimpan...';
+    msgEl.innerText = 'Mohon tunggu, data absensi siswa sedang disimpan ke sistem.';
+    iconContainer.innerHTML = `<div class="d-inline-flex p-3 rounded-circle bg-primary-subtle text-primary"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>`;
+    
+    // Sembunyikan tombol "Mengerti" saat loading
+    if (modalBtn) modalBtn.style.display = 'none';
+    
+    const myModal = new bootstrap.Modal(document.getElementById('appModal'));
+    myModal.show();
+
+    const attendanceData = {};
+    document.querySelectorAll('.student-status-input').forEach(select => {
+      const nisn = select.getAttribute('data-nisn');
+      attendanceData[nisn] = select.value;
+    });
+    
+    google.script.run.withSuccessHandler(res => {
+      // Munculkan kembali tombol "Mengerti" sebelum modal ditutup atau saat pesan sukses muncul
+      if (modalBtn) modalBtn.style.display = 'block';
+      
+      myModal.hide();
+      showPopUp(res.message, res.success ? 'success' : 'error');
+    }).submitStudentAttendance(kelas, dateStr, attendanceData);
+  }
+
+  function fetchStudentAttendanceRecap() {
+    const kelas = document.getElementById('recapStudentClass').value;
+    const month = document.getElementById('recapStudentMonth').value;
+    const year = document.getElementById('recapStudentYear').value;
+    
+    if (!kelas) {
+      return showPopUp('Pilih kelas terlebih dahulu.', 'error');
+    }
+    
+    google.script.run.withSuccessHandler(res => {
+      const tbody = document.getElementById('recapStudentTableBody');
+      tbody.innerHTML = '';
+      
+      if (!res.students || res.students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">Tidak ada data siswa.</td></tr>';
+        return;
+      }
+      
+      res.students.forEach(st => {
+        const records = res.attendanceMap[st.nisn] || {};
+        let hadir = 0, izin = 0, sakit = 0, alfa = 0;
+        
+        Object.values(records).forEach(stt => {
+          const s = String(stt).toLowerCase();
+          if (s.includes('hadir')) hadir++;
+          else if (s.includes('izin')) izin++;
+          else if (s.includes('sakit')) sakit++;
+          else if (s.includes('alfa')) alfa++;
+        });
+        
+        tbody.innerHTML += `<tr>
+          <td>${st.nisn}</td>
+          <td class="text-start"><strong>${st.nama}</strong></td>
+          <td><span class="badge bg-success">${hadir}</span></td>
+          <td><span class="badge bg-warning text-dark">${izin}</span></td>
+          <td><span class="badge bg-info text-dark">${sakit}</span></td>
+          <td><span class="badge bg-danger">${alfa}</span></td>
+        </tr>`;
+      });
+    }).getStudentAttendanceRecap(kelas, month, year);
+  }
+
+  function submitStudentGrade(nisn, name, btnElement) {
+    const subject = document.getElementById('gradeSubject').value;
+    if (!subject) return showPopUp('Pilih Mata Pelajaran terlebih dahulu di atas.', 'error');
+    const row = btnElement.closest('tr');
+    const uts = row.querySelector('.input-uts').value || 0;
+    const uas = row.querySelector('.input-uas').value || 0;
+    const uhVals = Array.from(row.querySelectorAll('.uh-val')).map((el, idx) => {
+      const mat = row.querySelectorAll('.uh-mat')[idx].value || '-';
+      return `${el.value || 0} (${mat})`;
+    });
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      loadGradeData();
+    }).saveGrade(nisn, name, subject, uhVals, uts, uas);
+  }
+
+  function resetUHInputsOnSelect() {
+    renderStudentInputList();
+  }
+
+  function applyCollectiveMaterial() {
+    const uhIndex = document.getElementById('collectiveUhIndex').value;
+    const collectiveMat = document.getElementById('collectiveMatText').value;
+    if (!collectiveMat.trim()) return showPopUp('Masukkan teks keterangan materi terlebih dahulu.', 'error');
+    
+    const matInputs = document.querySelectorAll(`.uh-mat-${uhIndex}`);
+    if (matInputs.length === 0) return showPopUp('Pilih kelas terlebih dahulu atau pastikan daftar siswa sudah muncul.', 'error');
+    matInputs.forEach(input => {
+      input.value = collectiveMat;
+    });
+    showPopUp(`Materi UH${uhIndex} berhasil diterapkan serentak ke seluruh siswa di kelas ini.`, 'success');
+  }
+
+  function loadGradeData() {
+    google.script.run.withSuccessHandler(data => {
+      globalGrades = data;
+      renderGradeTableFiltered();
+    }).getGrades();
+  }
+
+  function renderGradeTableFiltered() {
+    const filterClass = document.getElementById('filterGradeClass').value;
+    const tbody = document.getElementById('gradeTableBody');
+    tbody.innerHTML = '';
+    
+    const filtered = globalGrades.filter(row => {
+      if (!filterClass) return true;
+      const matchedStudent = globalStudents.find(s => String(s.nisn).trim() === String(row.nisn).trim());
+      return matchedStudent && matchedStudent.kelas === filterClass;
+    });
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">Belum ada data nilai untuk filter ini.</td></tr>';
+      return;
+    }
+    filtered.forEach(row => {
+      tbody.innerHTML += `<tr>
+        <td>${row.nisn}</td><td>${row.studentName}</td><td>${row.subject}</td>
+        <td>${row.uts}</td>
+        <td>${row.uas}</td>
+        <td><small>${row.uh ? row.uh.join('<br>') : '-'}</small></td>
+      </tr>`;
+    });
+    const selectedClass = document.getElementById('inputGradeClass').value;
+    if (selectedClass) {
+      renderStudentInputList();
+    }
+  }
+
+  function loadStudentData() {
+    google.script.run.withSuccessHandler(students => {
+      globalStudents = students;
+      populateStudentAttClasses();
+      const tbody = document.getElementById('studentTableBody');
+      if (tbody) {
+        tbody.innerHTML = '';
+        if (students.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Belum ada data siswa. Silakan upload via Excel atau tambahkan.</td></tr>';
+        } else {
+          students.forEach(st => {
+            tbody.innerHTML += `<tr><td>${st.nisn}</td><td>${st.nama}</td><td>${st.kelas}</td></tr>`;
+          });
+        }
+      }
+      const classes = [...new Set(students.map(s => s.kelas))];
+      const classSelectInput = document.getElementById('inputGradeClass');
+      const classSelectFilter = document.getElementById('filterGradeClass');
+      
+      classSelectInput.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+      classSelectFilter.innerHTML = '<option value="">-- Semua Kelas --</option>';
+      
+      classes.forEach(cls => {
+        if(cls) {
+          classSelectInput.innerHTML += `<option value="${cls}">${cls}</option>`;
+          classSelectFilter.innerHTML += `<option value="${cls}">${cls}</option>`;
+        }
+      });
+      loadGradeData();
+    }).getStudentsList();
+  }
+
+  function renderStudentInputList() {
+    const selectedClass = document.getElementById('inputGradeClass').value;
+    const selectedSubject = document.getElementById('gradeSubject').value;
+    const card = document.getElementById('studentInputCard');
+    const tbody = document.getElementById('studentInputTableBody');
+    document.getElementById('selectedClassName').innerText = selectedClass;
+    if (!selectedClass) {
+      card.classList.add('d-none');
+      return;
+    }
+    card.classList.remove('d-none');
+    tbody.innerHTML = '';
+    const filtered = globalStudents.filter(s => String(s.kelas).trim() === String(selectedClass).trim());
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">Tidak ada siswa di kelas ini.</td></tr>';
+      return;
+    }
+    filtered.forEach(st => {
+      let existingRecord = null;
+      if (selectedSubject) {
+        existingRecord = globalGrades.find(g => String(g.nisn).trim() === String(st.nisn).trim() && String(g.subject).trim() === String(selectedSubject).trim());
+      }
+      let savedUts = existingRecord ? existingRecord.uts : '';
+      let savedUas = existingRecord ? existingRecord.uas : '';
+      let uhInputsHtml = '';
+      for(let i = 1; i <= 10; i++) {
+        let valStr = '';
+        let matStr = '';
+        if (existingRecord && existingRecord.uh && existingRecord.uh[i-1]) {
+          const raw = String(existingRecord.uh[i-1]);
+          const match = raw.match(/^([^(]*)\((.*)\)$/);
+          if (match) {
+            valStr = match[1].trim() === '0' ? '' : match[1].trim();
+            matStr = match[2].trim() === '-' ? '' : match[2].trim();
+          } else {
+            valStr = raw === '0' ? '' : raw;
+          }
+        }
+        uhInputsHtml += `<div class="input-group input-group-sm mb-1">
+          <span class="input-group-text bg-light text-muted">UH${i}</span>
+          <input type="text" class="form-control uh-mat uh-mat-${i}" value="${matStr}" placeholder="Materi UH${i}">
+          <input type="number" class="form-control uh-val" value="${valStr}" placeholder="Nilai">
+        </div>`;
+      }
+      tbody.innerHTML += `<tr>
+        <td><strong>${st.nama}</strong><br><small class="text-muted">NISN: ${st.nisn}</small></td>
+        <td>
+          <input type="number" class="form-control form-control-sm mb-1 input-uts" value="${savedUts}" placeholder="Nilai UTS">
+          <input type="number" class="form-control form-control-sm input-uas" value="${savedUas}" placeholder="Nilai UAS">
+        </td>
+        <td style="max-width: 420px;">${uhInputsHtml}</td>
+        <td>
+          <button onclick="submitStudentGrade('${st.nisn}', '${st.nama}', this)" class="btn btn-sm btn-primary w-100 shadow-sm"><i class="fa-solid fa-floppy-disk me-1"></i> Simpan</button>
+        </td>
+      </tr>`;
+    });
+  }
+
+  function loadTeachersList() {
+    const tbody = document.getElementById('adminTeacherTableBody');
+    if (!tbody) return;
+
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3"><i class="fa-solid fa-spinner fa-spin me-2"></i>Memuat data pengguna...</td></tr>';
+
+    google.script.run
+      .withSuccessHandler(function(users) {
+        tbody.innerHTML = '';
+        if (!Array.isArray(users) || users.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">Tidak ada data pengguna.</td></tr>';
+          return;
+        }
+
+        users.forEach(function(user) {
+          const emailArg = encodeURIComponent(user.email);
+          const nameArg = encodeURIComponent(user.name);
+          const row = document.createElement('tr');
+
+          const nameCell = document.createElement('td');
+          nameCell.textContent = user.name || user.email;
+          const emailCell = document.createElement('td');
+          const emailSmall = document.createElement('small');
+          emailSmall.className = 'text-muted';
+          emailSmall.textContent = user.email;
+          emailCell.appendChild(emailSmall);
+
+          const roleCell = document.createElement('td');
+          const roleSelect = document.createElement('select');
+          roleSelect.className = 'form-select form-select-sm';
+          ['Guru', 'Kepala Sekolah', 'Bendahara', 'Admin'].forEach(function(role) {
+            const option = document.createElement('option');
+            option.value = role;
+            option.textContent = role;
+            option.selected = user.role === role;
+            roleSelect.appendChild(option);
+          });
+          roleSelect.addEventListener('change', function() {
+            updateTeacherRole(user.email, this.value);
+          });
+          roleCell.appendChild(roleSelect);
+
+          const bpjsCell = document.createElement('td');
+          const bpjsCheck = document.createElement('input');
+          bpjsCheck.type = 'checkbox';
+          bpjsCheck.className = 'form-check-input me-1';
+          bpjsCheck.checked = !!user.canRecapBPJS;
+          bpjsCheck.addEventListener('change', function() {
+            toggleBPJS(user.email, this.checked);
+          });
+          bpjsCell.appendChild(bpjsCheck);
+          bpjsCell.appendChild(document.createTextNode(' Boleh'));
+
+          const actionCell = document.createElement('td');
+          const loginButton = document.createElement('button');
+          loginButton.type = 'button';
+          loginButton.className = 'btn btn-sm btn-info text-white';
+          loginButton.innerHTML = '<i class="fa-solid fa-right-to-bracket me-1"></i> Login';
+          loginButton.addEventListener('click', function() {
+            loginAsTeacher(decodeURIComponent(emailArg), decodeURIComponent(nameArg), !!user.canRecapBPJS, user.role);
+          });
+          actionCell.appendChild(loginButton);
+
+          row.append(nameCell, emailCell, roleCell, bpjsCell, actionCell);
+          tbody.appendChild(row);
+        });
+
+        console.log('Jumlah akun pengguna terbaca:', users.length);
+      })
+      .withFailureHandler(function(error) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-3">Gagal memuat pengguna: ' +
+          escapeHtmlForUsers(error && error.message ? error.message : error) + '</td></tr>';
+        console.error('getTeachersList:', error);
+      })
+      .getTeachersList();
+  }
+
+  function escapeHtmlForUsers(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+
+  // Fungsi penghubung ke Google Apps Script untuk menyimpan perubahan role
+  function updateTeacherRole(email, newRole) {
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      loadTeachersList();
+    }).updateTeacherRole(email, newRole);
+  }
+
+  function toggleBPJS(email, status) {
+    google.script.run.withSuccessHandler(res => showPopUp(res.message, res.success ? 'success' : 'error')).toggleBPJSPermission(email, status);
+  }
+
+  function submitAddTeacher() {
+    const email = document.getElementById('addTeacherEmail').value;
+    const pass = document.getElementById('addTeacherPass').value;
+    const name = document.getElementById('addTeacherName').value;
+    const role = document.getElementById('addTeacherRole').value;
+
+    if (!email || !pass || !name || !role) {
+      return showPopUp('Lengkapi seluruh formulir tambah pengguna.', 'error');
+    }
+
+    google.script.run.withSuccessHandler(res => {
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      if (res.success) {
+        // Reset input formulir setelah berhasil
+        document.getElementById('addTeacherEmail').value = '';
+        document.getElementById('addTeacherPass').value = '';
+        document.getElementById('addTeacherName').value = '';
+        document.getElementById('addTeacherRole').value = 'Guru';
+        loadTeachersList();
+      }
+    }).addTeacher(email, pass, name, role);
+  }
+
+  function handleExcelUpload() {
+    const file = document.getElementById('excelFileInput').files[0];
+    if (!file) return showPopUp('Pilih file Excel terlebih dahulu.', 'error');
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+      
+      const parsed = jsonData.map(row => ({
+        nisn: String(row.NISN || row.nisn || '').trim(),
+        nama: String(row.Nama || row.nama || '').trim(),
+        kelas: String(row.Kelas || row.kelas || '').trim()
+      }));
+      google.script.run.withSuccessHandler(res => {
+        showPopUp(res.message, res.success ? 'success' : 'error');
+        loadStudentData();
+      }).importStudentsBatch(parsed);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+
+  // ======================================================
+  // JAVASCRIPT JURNAL HARIAN GURU
+  // ======================================================
+
+  var globalJournalRows = [];
+
+  function journalToday() {
+    var d = new Date();
+    return d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  }
+
+  function journalEscape(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function initDailyJournal() {
+    if (!currentUser || !currentUser.email) {
+      showPopUp('Silakan login kembali.', 'error');
+      return;
+    }
+
+    var isManager = currentUser.role === 'Kepala Sekolah' || currentUser.role === 'Admin';
+    document.getElementById('journalDate').value = journalToday();
+    document.getElementById('journalFilterCard').classList.toggle('d-none', !isManager);
+    document.getElementById('journalFormCard').classList.remove('d-none');
+
+    if (isManager) loadJournalTeacherFilter();
+    loadDailyJournal();
+  }
+
+  function loadJournalTeacherFilter() {
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (!res || !res.success) {
+          showPopUp(res ? res.message : 'Gagal memuat daftar guru.', 'error');
+          return;
+        }
+        var select = document.getElementById('journalTeacherFilter');
+        var previous = select.value;
+        select.innerHTML = '<option value="">Semua Guru</option>';
+        (res.data || []).forEach(function(guru) {
+          var option = document.createElement('option');
+          option.value = guru.email;
+          option.textContent = guru.nama;
+          select.appendChild(option);
+        });
+        select.value = previous;
+      })
+      .withFailureHandler(function(err) {
+        showPopUp(err.message || 'Gagal memuat daftar guru.', 'error');
+      })
+      .getJournalTeacherList(currentUser.email);
+  }
+
+  function loadDailyJournal() {
+    if (!currentUser || !currentUser.email) return;
+
+    var isManager = currentUser.role === 'Kepala Sekolah' || currentUser.role === 'Admin';
+    var startDate = isManager ? document.getElementById('journalStartDate').value : '';
+    var endDate = isManager ? document.getElementById('journalEndDate').value : '';
+    var filterEmail = isManager ? document.getElementById('journalTeacherFilter').value : '';
+
+    if (startDate && endDate && startDate > endDate) {
+      showPopUp('Tanggal mulai tidak boleh melebihi tanggal selesai.', 'error');
+      return;
+    }
+
+    var tbody = document.getElementById('journalTableBody');
+    tbody.innerHTML = '<tr><td colspan="8" class="text-center">Memuat data...</td></tr>';
+
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (!res || !res.success) {
+          tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">' +
+            journalEscape(res ? res.message : 'Gagal memuat jurnal.') + '</td></tr>';
+          return;
+        }
+        globalJournalRows = res.data || [];
+        renderDailyJournal();
+      })
+      .withFailureHandler(function(err) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">' +
+          journalEscape(err.message || 'Terjadi kesalahan.') + '</td></tr>';
+      })
+      .getDailyJournals(currentUser.email, startDate, endDate, filterEmail);
+  }
+
+  function renderDailyJournal() {
+    var tbody = document.getElementById('journalTableBody');
+    tbody.innerHTML = '';
+
+    if (!globalJournalRows.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">Belum ada jurnal harian.</td></tr>';
+      document.getElementById('journalTotal').textContent = 'Total jurnal: 0';
+      return;
+    }
+
+    globalJournalRows.forEach(function(row, index) {
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + (index + 1) + '</td>' +
+        '<td>' + journalEscape(row.tanggal) + '</td>' +
+        '<td>' + journalEscape(row.nama) + '</td>' +
+        '<td style="min-width:180px;white-space:pre-wrap">' + journalEscape(row.kegiatan) + '</td>' +
+        '<td style="min-width:180px;white-space:pre-wrap">' + journalEscape(row.hasil) + '</td>' +
+        '<td style="min-width:150px;white-space:pre-wrap">' + journalEscape(row.kendala || '-') + '</td>' +
+        '<td style="min-width:150px;white-space:pre-wrap">' + journalEscape(row.tindakLanjut || '-') + '</td>' +
+        '<td class="text-nowrap">' +
+          '<button class="btn btn-sm btn-warning me-1" onclick="editDailyJournal(' + index + ')"><i class="fa-solid fa-pen"></i></button>' +
+          '<button class="btn btn-sm btn-danger" onclick="removeDailyJournal(' + index + ')"><i class="fa-solid fa-trash"></i></button>' +
+        '</td>';
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('journalTotal').textContent =
+      'Total jurnal: ' + globalJournalRows.length;
+  }
+
+  function submitDailyJournal() {
+    if (!currentUser || !currentUser.email) return;
+
+    var journal = {
+      id: document.getElementById('journalEditId').value,
+      tanggal: document.getElementById('journalDate').value,
+      kegiatan: document.getElementById('journalActivity').value.trim(),
+      hasil: document.getElementById('journalResult').value.trim(),
+      kendala: document.getElementById('journalObstacle').value.trim(),
+      tindakLanjut: document.getElementById('journalFollowup').value.trim()
+    };
+
+    if (!journal.tanggal || !journal.kegiatan || !journal.hasil) {
+      showPopUp('Tanggal, kegiatan, dan hasil wajib diisi.', 'error');
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (res && res.success) {
+          showPopUp(res.message, 'success');
+          resetJournalForm();
+          loadDailyJournal();
+        } else {
+          showPopUp(res ? res.message : 'Gagal menyimpan jurnal.', 'error');
+        }
+      })
+      .withFailureHandler(function(err) {
+        showPopUp(err.message || 'Gagal menyimpan jurnal.', 'error');
+      })
+      .saveDailyJournal(currentUser.email, journal);
+  }
+
+  function editDailyJournal(index) {
+    var row = globalJournalRows[index];
+    if (!row) return;
+
+    document.getElementById('journalEditId').value = row.id;
+    document.getElementById('journalDate').value = row.tanggal;
+    document.getElementById('journalActivity').value = row.kegiatan;
+    document.getElementById('journalResult').value = row.hasil;
+    document.getElementById('journalObstacle').value = row.kendala;
+    document.getElementById('journalFollowup').value = row.tindakLanjut;
+
+    document.getElementById('journalFormCard').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    showPopUp('Silakan perbarui jurnal lalu tekan Simpan Jurnal.', 'success');
+  }
+
+  function resetJournalForm() {
+    document.getElementById('journalEditId').value = '';
+    document.getElementById('journalDate').value = journalToday();
+    document.getElementById('journalActivity').value = '';
+    document.getElementById('journalResult').value = '';
+    document.getElementById('journalObstacle').value = '';
+    document.getElementById('journalFollowup').value = '';
+  }
+
+  function removeDailyJournal(index) {
+    var row = globalJournalRows[index];
+    if (!row) return;
+    if (!confirm('Yakin ingin menghapus jurnal tanggal ' + row.tanggal + '?')) return;
+
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (res && res.success) {
+          showPopUp(res.message, 'success');
+          loadDailyJournal();
+        } else {
+          showPopUp(res ? res.message : 'Gagal menghapus jurnal.', 'error');
+        }
+      })
+      .withFailureHandler(function(err) {
+        showPopUp(err.message || 'Gagal menghapus jurnal.', 'error');
+      })
+      .deleteDailyJournal(currentUser.email, row.id);
+  }
+
+  function printDailyJournal() {
+    if (!globalJournalRows.length) {
+      showPopUp('Tidak ada jurnal untuk dicetak.', 'error');
+      return;
+    }
+
+    var win = window.open('', '_blank');
+    if (!win) {
+      showPopUp('Izinkan pop-up browser untuk mencetak laporan.', 'error');
+      return;
+    }
+
+    var bodyRows = globalJournalRows.map(function(row, index) {
+      return '<tr><td>' + (index + 1) + '</td>' +
+        '<td>' + journalEscape(row.tanggal) + '</td>' +
+        '<td>' + journalEscape(row.nama) + '</td>' +
+        '<td>' + journalEscape(row.kegiatan) + '</td>' +
+        '<td>' + journalEscape(row.hasil) + '</td>' +
+        '<td>' + journalEscape(row.kendala || '-') + '</td>' +
+        '<td>' + journalEscape(row.tindakLanjut || '-') + '</td></tr>';
+    }).join('');
+
+    var printHtml = '<!DOCTYPE html><html><head><title>Rekap Jurnal Harian</title>' +
+      '<style>body{font-family:Arial,sans-serif;padding:20px;color:#222}' +
+      'h2,p{text-align:center}table{width:100%;border-collapse:collapse;font-size:11px}' +
+      'th,td{border:1px solid #444;padding:7px;vertical-align:top;text-align:left}' +
+      'th{background:#eee} @media print{button{display:none}}</style></head><body>' +
+      '<h2>REKAP JURNAL HARIAN GURU</h2><p>MIS AL-KHUDAMAT</p>' +
+      '<table><thead><tr><th>No</th><th>Tanggal</th><th>Nama Guru</th><th>Kegiatan</th>' +
+      '<th>Hasil</th><th>Kendala</th><th>Tindak Lanjut</th></tr></thead><tbody>' +
+      bodyRows + '</tbody></table><p style="text-align:right;margin-top:30px">Dicetak: ' +
+      journalEscape(journalToday()) + '</p><script>window.onload=function(){window.print();};<\/script>' +
+      '</body></html>';
+
+    win.document.open();
+    win.document.write(printHtml);
+    win.document.close();
+  }
+
+  function logout() {
+    localStorage.removeItem('school_current_user');
+    localStorage.removeItem('school_admin_session');
+    currentUser = null;
+    adminSession = null;
+    document.getElementById('mainDashboard').classList.add('d-none');
+    document.getElementById('loginSection').classList.remove('d-none');
+    showPopUp('Berhasil Logout dari sesi aktif.', 'success');
+  }
+</script>
+</body>
+</html>
