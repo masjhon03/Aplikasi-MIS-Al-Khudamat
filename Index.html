@@ -179,10 +179,6 @@
         margin: 0 !important; 
         display: block !important; 
       }
-      <script>
-      const API_URL= "https://docs.google.com/spreadsheets/d/1Kzgdgv75BMEuEZNY1cuYBK5ro1Yz_le5iog60x4UCaE/edit?gid=0#gid=0"
-    </script>
-      /* Membuat gambar kop surat melebar penuh dan proporsional sesuai kertas */
       #printArea img {
         width: 100% !important;
         max-height: none !important;
@@ -247,15 +243,15 @@
             <button onclick="stopImpersonation()" class="btn btn-sm btn-danger w-100 mt-2 py-1">Kembali ke Admin</button>
           </div>
           <div class="d-flex flex-column gap-1">
-  <a href="#" onclick="switchTab('dashboard', this)" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-  <a href="#" onclick="switchTab('absensi', this)" class="menu-item"><i class="fa-solid fa-location-dot"></i> Absensi Lokasi</a>
-  <a href="#" onclick="switchTab('absen-siswa', this)" class="menu-item"><i class="fa-solid fa-clipboard-user"></i> Absensi Siswa</a>
-  <a href="#" onclick="switchTab('bpjs', this)" class="menu-item"><i class="fa-solid fa-shield-halved"></i> BPJS Guru</a>
-  <a href="#" onclick="switchTab('nilai', this)" class="menu-item"><i class="fa-solid fa-pen-to-square"></i> Nilai Siswa</a>
-  <a href="#" onclick="switchTab('siswa', this)" class="menu-item"><i class="fa-solid fa-users"></i> Daftar Siswa</a>
-  <a href="#" id="menuJournalDesk" onclick="switchTab('jurnal', this)" class="menu-item"><i class="fa-solid fa-book-open"></i> Jurnal Harian</a>
-  <a href="#" id="menuAdminOnlyDesk" onclick="switchTab('admin', this)" class="menu-item"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Admin</a>
-</div>
+            <a href="#" onclick="switchTab('dashboard', this)" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="#" onclick="switchTab('absensi', this)" class="menu-item"><i class="fa-solid fa-location-dot"></i> Absensi Lokasi</a>
+            <a href="#" onclick="switchTab('absen-siswa', this)" class="menu-item"><i class="fa-solid fa-clipboard-user"></i> Absensi Siswa</a>
+            <a href="#" onclick="switchTab('bpjs', this)" class="menu-item"><i class="fa-solid fa-shield-halved"></i> BPJS Guru</a>
+            <a href="#" onclick="switchTab('nilai', this)" class="menu-item"><i class="fa-solid fa-pen-to-square"></i> Nilai Siswa</a>
+            <a href="#" onclick="switchTab('siswa', this)" class="menu-item"><i class="fa-solid fa-users"></i> Daftar Siswa</a>
+            <a href="#" id="menuJournalDesk" onclick="switchTab('jurnal', this)" class="menu-item"><i class="fa-solid fa-book-open"></i> Jurnal Harian</a>
+            <a href="#" id="menuAdminOnlyDesk" onclick="switchTab('admin', this)" class="menu-item"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Admin</a>
+          </div>
         </div>
         <div class="mt-4 pt-3 border-top border-secondary">
           <button onclick="toggleDarkMode()" id="darkModeToggleBtnDesk" class="btn btn-outline-light w-100 mb-2 btn-sm py-2 d-flex align-items-center justify-content-center gap-2">
@@ -291,7 +287,7 @@
             <a href="#" onclick="switchTab('nilai', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-pen-to-square"></i> Nilai Siswa</a>
             <a href="#" onclick="switchTab('siswa', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-users"></i> Daftar Siswa</a>
             <a href="#" id="menuJournalMob" onclick="switchTab('jurnal', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-book-open"></i> Jurnal Harian</a>
-      <a href="#" id="menuAdminOnlyMob" onclick="switchTab('admin', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Admin</a>
+            <a href="#" id="menuAdminOnlyMob" onclick="switchTab('admin', this); closeMobileOffcanvas();" class="menu-item"><i class="fa-solid fa-screwdriver-wrench"></i> Kelola Admin</a>
           </div>
         </div>
         <div class="mt-4 pt-3 border-top border-secondary">
@@ -427,11 +423,10 @@
         </div>
       </div>
 
-      <!-- TAB ABSENSI SISWA & REKAP (OTOMATIS PILIH KELAS) -->
+      <!-- TAB ABSENSI SISWA & REKAP -->
       <div id="tab-absen-siswa" class="tab-content d-none">
         <h3 class="fw-bold mb-4">Absensi Siswa & Rekapitulasi Bulanan</h3>
         
-        <!-- Form Input Absensi Harian Siswa Otomatis Berdasarkan Kelas -->
         <div class="card card-custom p-4 mb-4">
           <h5 class="fw-bold mb-3"><i class="fa-solid fa-calendar-check text-primary me-2"></i>Input Absensi Harian Siswa</h5>
           <div class="row g-3 mb-3">
@@ -465,7 +460,6 @@
           </div>
         </div>
 
-        <!-- Rekapitulasi Absensi Bulanan Siswa -->
         <div class="card card-custom p-4">
           <h5 class="fw-bold mb-3"><i class="fa-solid fa-file-invoice me-2 text-primary"></i>Rekapitulasi Absensi Bulanan Siswa</h5>
           <div class="row g-3 mb-3">
@@ -738,7 +732,6 @@
         </div>
       </div>
 
-
       <!-- TAB JURNAL HARIAN GURU -->
       <div id="tab-jurnal" class="tab-content d-none">
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
@@ -830,25 +823,25 @@
       <!-- Tab Admin -->
       <div id="tab-admin" class="tab-content d-none">
         <h3 class="fw-bold mb-4">Fitur Khusus Admin</h3>
-        <div class="col-lg-6 mb-4">
-  <div class="card card-custom p-4 h-100">
-    <h5 class="fw-bold mb-3">Tambah Guru / Pengguna</h5>
-    <input type="email" id="addTeacherEmail" class="form-control mb-2" placeholder="Email Akun">
-    <input type="password" id="addTeacherPass" class="form-control mb-2" placeholder="Password">
-    <input type="text" id="addTeacherName" class="form-control mb-2" placeholder="Nama Lengkap & Gelar">
-    
-    <!-- Bagian Dropdown Role yang Baru -->
-    <label class="form-label small fw-semibold text-muted mb-1">Role / Hak Akses</label>
-    <select id="addTeacherRole" class="form-select mb-3">
-      <option value="Guru" selected>Guru</option>
-      <option value="Kepala Sekolah">Kepala Sekolah</option>
-      <option value="Bendahara">Bendahara</option>
-      <option value="Admin">Admin</option>
-    </select>
-    
-    <button onclick="submitAddTeacher()" class="btn btn-success">Tambah Pengguna</button>
-  </div>
-</div>
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="card card-custom p-4 h-100">
+              <h5 class="fw-bold mb-3">Tambah Guru / Pengguna</h5>
+              <input type="email" id="addTeacherEmail" class="form-control mb-2" placeholder="Email Akun">
+              <input type="password" id="addTeacherPass" class="form-control mb-2" placeholder="Password">
+              <input type="text" id="addTeacherName" class="form-control mb-2" placeholder="Nama Lengkap & Gelar">
+              
+              <label class="form-label small fw-semibold text-muted mb-1">Role / Hak Akses</label>
+              <select id="addTeacherRole" class="form-select mb-3">
+                <option value="Guru" selected>Guru</option>
+                <option value="Kepala Sekolah">Kepala Sekolah</option>
+                <option value="Bendahara">Bendahara</option>
+                <option value="Admin">Admin</option>
+              </select>
+              
+              <button onclick="submitAddTeacher()" class="btn btn-success">Tambah Pengguna</button>
+            </div>
+          </div>
           <div class="col-lg-6 mb-4">
             <div class="card card-custom p-4 h-100">
               <h5 class="fw-bold mb-3">Upload Excel Data Siswa</h5>
@@ -885,11 +878,35 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  // Silakan masukkan URL Web App Apps Script Anda setelah mempublikasikannya
+  const GAS_WEB_APP_URL = "MASUKKAN_URL_DEPLOYMENT_WEB_APP_DI_SINI";
+
   let currentUser = null;
   let adminSession = null;
   let chartInstance = null;
   let globalStudents = [];
   let globalGrades = [];
+
+  // Helper API Call menggunakan fetch untuk menggantikan google.script.run
+  async function apiCall(action, payload = {}, method = 'POST') {
+    try {
+      let response;
+      if (method === 'GET') {
+        const queryParams = new URLSearchParams({ action, ...payload }).toString();
+        response = await fetch(`${GAS_WEB_APP_URL}?${queryParams}`);
+      } else {
+        response = await fetch(GAS_WEB_APP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action, ...payload })
+        });
+      }
+      return await response.json();
+    } catch (err) {
+      console.error('API Error:', err);
+      return { success: false, message: 'Gagal terhubung ke server Google Sheets.' };
+    }
+  }
 
   function showPopUp(msg, type = 'info') {
     const titleEl = document.getElementById('appModalTitle');
@@ -924,7 +941,6 @@
     const savedUser = localStorage.getItem('school_current_user');
     const savedAdminSession = localStorage.getItem('school_admin_session');
     
-    // Auto-fill tanggal hari ini di form absen siswa
     const today = new Date().toISOString().split('T')[0];
     const attDateInput = document.getElementById('studentAttDate');
     if (attDateInput) attDateInput.value = today;
@@ -965,21 +981,21 @@
     }
   }
 
-  function handleLogin() {
+  async function handleLogin() {
     const email = document.getElementById('loginEmail').value;
     const pass = document.getElementById('loginPassword').value;
     if(!email || !pass) return showPopUp('Email dan Password wajib diisi!', 'error');
-    google.script.run.withSuccessHandler(res => {
-      if (res.success) {
-        currentUser = res.user;
-        localStorage.setItem('school_current_user', JSON.stringify(currentUser));
-        localStorage.removeItem('school_admin_session');
-        showPopUp('Login Berhasil! Selamat datang ' + currentUser.name, 'success');
-        initDashboard();
-      } else {
-        showPopUp(res.message, 'error');
-      }
-    }).loginUser(email, pass);
+
+    const res = await apiCall('loginUser', { email, pass });
+    if (res.success) {
+      currentUser = res.user;
+      localStorage.setItem('school_current_user', JSON.stringify(currentUser));
+      localStorage.removeItem('school_admin_session');
+      showPopUp('Login Berhasil! Selamat datang ' + currentUser.name, 'success');
+      initDashboard();
+    } else {
+      showPopUp(res.message || 'Login gagal.', 'error');
+    }
   }
 
   function initDashboard() {
@@ -1001,11 +1017,9 @@
     const isKepalaSekolah = (currentUser.role === 'Kepala Sekolah');
     const isBendahara = (currentUser.role === 'Bendahara');
 
-    // Menu Kelola Admin hanya untuk Admin murni
     document.getElementById('menuAdminOnlyDesk').style.display = isAdminMurni ? 'block' : 'none';
     document.getElementById('menuAdminOnlyMob').style.display = isAdminMurni ? 'block' : 'none';
     
-    // Card Rekap BPJS khusus Admin, Kepala Sekolah, atau Bendahara
     const adminBpjsCard = document.getElementById('adminBpjsRecapCard');
     if (isAdminMurni || isKepalaSekolah || isBendahara) {
       adminBpjsCard.classList.remove('d-none');
@@ -1014,7 +1028,6 @@
       adminBpjsCard.classList.add('d-none');
     }
     
-    // Form Input BPJS terbuka untuk Admin, Bendahara, atau yang memiliki wewenang
     if (currentUser.canRecapBPJS || isAdminMurni || isBendahara || isKepalaSekolah) {
       document.getElementById('bpjsFormCard').classList.remove('d-none');
       loadTeachersDropdown();
@@ -1059,66 +1072,65 @@
     }
   }
 
-  function loadUnpaidBPJSWidget() {
+  async function loadUnpaidBPJSWidget() {
     const monthInput = document.getElementById('dashboardBpjsMonth').value;
     const currentYear = new Date().getFullYear();
-    google.script.run.withSuccessHandler(unpaidList => {
-      const tbody = document.getElementById('unpaidBpjsTableBody');
-      tbody.innerHTML = '';
-      if (!unpaidList || unpaidList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="3" class="text-center text-success small py-3">Semua guru sudah membayar BPJS bulan ${monthInput}!</td></tr>`;
-        return;
-      }
-      unpaidList.forEach((t, index) => {
-        tbody.innerHTML += `<tr>
-          <td>${index + 1}</td>
-          <td>${t.name}</td>
-          <td><small class="text-muted">${t.email}</small></td>
-        </tr>`;
-      });
-    }).getUnpaidBPJS(monthInput, currentYear);
+    const unpaidList = await apiCall('getUnpaidBPJS', { month: monthInput, year: currentYear }, 'GET');
+    
+    const tbody = document.getElementById('unpaidBpjsTableBody');
+    tbody.innerHTML = '';
+    if (!unpaidList || unpaidList.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="3" class="text-center text-success small py-3">Semua guru sudah membayar BPJS bulan ${monthInput}!</td></tr>`;
+      return;
+    }
+    unpaidList.forEach((t, index) => {
+      tbody.innerHTML += `<tr>
+        <td>${index + 1}</td>
+        <td>${t.name}</td>
+        <td><small class="text-muted">${t.email}</small></td>
+      </tr>`;
+    });
   }
 
-  function loadAdminBPJSRecap() {
+  async function loadAdminBPJSRecap() {
     const month = document.getElementById('adminBpjsFilterMonth').value;
     const year = document.getElementById('adminBpjsFilterYear').value;
-    google.script.run.withSuccessHandler(list => {
-      const tbody = document.getElementById('adminBpjsRecapTableBody');
-      tbody.innerHTML = '';
-      if (!list || list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Tidak ada data guru.</td></tr>';
-        return;
+    const list = await apiCall('getAdminBPJSRecapList', { month, year }, 'GET');
+
+    const tbody = document.getElementById('adminBpjsRecapTableBody');
+    tbody.innerHTML = '';
+    if (!list || list.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Tidak ada data guru.</td></tr>';
+      return;
+    }
+    list.forEach(item => {
+      let statusBadge = '';
+      if (!item.isParticipatingBPJS) {
+        statusBadge = `<span class="badge bg-secondary-subtle text-secondary px-2 py-1"><i class="fa-solid fa-ban me-1"></i>Tidak Mengikuti</span>`;
+      } else if (item.hasPaid) {
+        statusBadge = `<span class="badge bg-success-subtle text-success px-2 py-1"><i class="fa-solid fa-check me-1"></i>Lunas</span>`;
+      } else {
+        statusBadge = `<span class="badge bg-danger-subtle text-danger px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Belum Membayar</span>`;
       }
-      list.forEach(item => {
-        let statusBadge = '';
-        if (!item.isParticipatingBPJS) {
-          statusBadge = `<span class="badge bg-secondary-subtle text-secondary px-2 py-1"><i class="fa-solid fa-ban me-1"></i>Tidak Mengikuti</span>`;
-        } else if (item.hasPaid) {
-          statusBadge = `<span class="badge bg-success-subtle text-success px-2 py-1"><i class="fa-solid fa-check me-1"></i>Lunas</span>`;
-        } else {
-          statusBadge = `<span class="badge bg-danger-subtle text-danger px-2 py-1"><i class="fa-solid fa-xmark me-1"></i>Belum Membayar</span>`;
-        }
-        tbody.innerHTML += `<tr>
-          <td>${item.no}</td>
-          <td><strong>${item.name}</strong></td>
-          <td><small class="text-muted">${item.email}</small></td>
-          <td class="text-center">
-            <input type="checkbox" ${item.isParticipatingBPJS ? 'checked' : ''} onchange="toggleBPJSParticipation('${item.email}', this.checked)" class="form-check-input" style="width: 20px; height: 20px; cursor: pointer;">
-          </td>
-          <td>${statusBadge}</td>
-          <td>${item.payDate}</td>
-          <td>${item.amount ? 'Rp ' + Number(item.amount).toLocaleString('id-ID') : '-'}</td>
-        </tr>`;
-      });
-    }).getAdminBPJSRecapList(month, year);
+      tbody.innerHTML += `<tr>
+        <td>${item.no}</td>
+        <td><strong>${item.name}</strong></td>
+        <td><small class="text-muted">${item.email}</small></td>
+        <td class="text-center">
+          <input type="checkbox" ${item.isParticipatingBPJS ? 'checked' : ''} onchange="toggleBPJSParticipation('${item.email}', this.checked)" class="form-check-input" style="width: 20px; height: 20px; cursor: pointer;">
+        </td>
+        <td>${statusBadge}</td>
+        <td>${item.payDate}</td>
+        <td>${item.amount ? 'Rp ' + Number(item.amount).toLocaleString('id-ID') : '-'}</td>
+      </tr>`;
+    });
   }
 
-  function toggleBPJSParticipation(email, status) {
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      loadAdminBPJSRecap();
-      loadUnpaidBPJSWidget();
-    }).toggleTeacherBPJSParticipation(email, status);
+  async function toggleBPJSParticipation(email, status) {
+    const res = await apiCall('toggleTeacherBPJSParticipation', { email, status });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    loadAdminBPJSRecap();
+    loadUnpaidBPJSWidget();
   }
 
   function loginAsTeacher(teacherEmail, teacherName, canRecap, teacherRole) {
@@ -1173,100 +1185,105 @@
     }
   }
 
-  function executeAttendance(lat, lng, type, statusAbsen, keterangan) {
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      document.getElementById('tugasLuarKeterangan').value = '';
-      loadAttendanceData();
-      renderChart();
-    }).submitAttendance(currentUser.email, currentUser.name, lat, lng, type, statusAbsen, keterangan);
+  async function executeAttendance(lat, lng, type, statusAbsen, keterangan) {
+    const res = await apiCall('submitAttendance', {
+      email: currentUser.email,
+      name: currentUser.name,
+      lat, lng, type, statusAbsen, keterangan
+    });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    document.getElementById('tugasLuarKeterangan').value = '';
+    loadAttendanceData();
+    renderChart();
   }
 
-  function loadAttendanceData() {
+  async function loadAttendanceData() {
     if (!currentUser || !currentUser.email) return;
     const isAdmin = currentUser.role === 'Admin' && !adminSession;
-    google.script.run.withSuccessHandler(data => {
-      const tbody = document.getElementById('attendanceTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      
-      if (!data || data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Belum ada riwayat absensi untuk akun ini.</td></tr>';
-        return;
+    const data = await apiCall('getAttendanceHistory', { email: currentUser.email, isAdmin }, 'GET');
+    
+    const tbody = document.getElementById('attendanceTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    
+    if (!data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Belum ada riwayat absensi untuk akun ini.</td></tr>';
+      return;
+    }
+    data.forEach(row => {
+      let actionBtn = '-';
+      if (isAdmin) {
+        actionBtn = `<select onchange="updateAttendanceStatus(${row.rowIndex}, this.value)" class="form-select form-select-sm">
+          <option value="Hadir" ${row.status.includes('Hadir') ? 'selected' : ''}>Hadir</option>
+          <option value="Izin" ${row.status.includes('Izin') ? 'selected' : ''}>Izin</option>
+          <option value="Sakit" ${row.status.includes('Sakit') ? 'selected' : ''}>Sakit</option>
+          <option value="Tugas Luar" ${row.status.includes('Tugas Luar') ? 'selected' : ''}>Tugas Luar</option>
+          <option value="Alfa" ${row.status.includes('Alfa') ? 'selected' : ''}>Alfa</option>
+        </select>`;
       }
-      data.forEach(row => {
-        let actionBtn = '-';
-        if (isAdmin) {
-          actionBtn = `<select onchange="updateAttendanceStatus(${row.rowIndex}, this.value)" class="form-select form-select-sm">
-            <option value="Hadir" ${row.status.includes('Hadir') ? 'selected' : ''}>Hadir</option>
-            <option value="Izin" ${row.status.includes('Izin') ? 'selected' : ''}>Izin</option>
-            <option value="Sakit" ${row.status.includes('Sakit') ? 'selected' : ''}>Sakit</option>
-            <option value="Tugas Luar" ${row.status.includes('Tugas Luar') ? 'selected' : ''}>Tugas Luar</option>
-            <option value="Alfa" ${row.status.includes('Alfa') ? 'selected' : ''}>Alfa</option>
-          </select>`;
-        }
-        let badgeClass = 'bg-primary-subtle text-primary';
-        if (row.status.includes('Hadir')) badgeClass = 'bg-success-subtle text-success';
-        else if (row.status.includes('Izin')) badgeClass = 'bg-warning-subtle text-warning';
-        else if (row.status.includes('Sakit')) badgeClass = 'bg-info-subtle text-info';
-        else if (row.status.includes('Alfa')) badgeClass = 'bg-danger-subtle text-danger';
-        tbody.innerHTML += `<tr>
-          <td><strong>${row.date}</strong></td>
-          <td>${row.name}</td>
-          <td><span class="badge bg-light text-dark font-monospace">${row.timeIn}</span></td>
-          <td><span class="badge bg-light text-dark font-monospace">${row.timeOut}</span></td>
-          <td><span class="badge ${badgeClass} px-2 py-1">${row.status}</span></td>
-          <td>${row.distance} m</td>
-          <td>${actionBtn}</td>
-        </tr>`;
-      });
-    }).getAttendanceHistory(currentUser.email, isAdmin);
+      let badgeClass = 'bg-primary-subtle text-primary';
+      if (row.status.includes('Hadir')) badgeClass = 'bg-success-subtle text-success';
+      else if (row.status.includes('Izin')) badgeClass = 'bg-warning-subtle text-warning';
+      else if (row.status.includes('Sakit')) badgeClass = 'bg-info-subtle text-info';
+      else if (row.status.includes('Alfa')) badgeClass = 'bg-danger-subtle text-danger';
+      tbody.innerHTML += `<tr>
+        <td><strong>${row.date}</strong></td>
+        <td>${row.name}</td>
+        <td><span class="badge bg-light text-dark font-monospace">${row.timeIn}</span></td>
+        <td><span class="badge bg-light text-dark font-monospace">${row.timeOut}</span></td>
+        <td><span class="badge ${badgeClass} px-2 py-1">${row.status}</span></td>
+        <td>${row.distance} m</td>
+        <td>${actionBtn}</td>
+      </tr>`;
+    });
   }
 
-  function loadAttendanceHistoryFiltered() {
+  async function loadAttendanceHistoryFiltered() {
     const startDate = document.getElementById('filterStartDate').value;
     const endDate = document.getElementById('filterEndDate').value;
     if (!startDate || !endDate) {
       return showPopUp('Harap isi Tanggal Mulai dan Tanggal Selesai terlebih dahulu.', 'error');
     }
-    google.script.run.withSuccessHandler(list => {
-      const tbody = document.getElementById('attendanceTableBody');
-      tbody.innerHTML = '';
-      if (!list || list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Tidak ada data rekap pada rentang tanggal tersebut.</td></tr>';
-        return;
-      }
-      list.forEach(row => {
-        let rowStyle = row.isHoliday ? 'style="background-color: #f8d7da; color: #842029;"' : '';
-        let badgeClass = row.isHoliday ? 'bg-danger text-white' : 'bg-primary-subtle text-primary';
-        if (row.status.includes('Hadir')) badgeClass = 'bg-success-subtle text-success';
-        
-        tbody.innerHTML += `<tr ${rowStyle}>
-          <td><strong>${row.date}</strong></td>
-          <td>${currentUser.name}</td>
-          <td>${row.timeIn}</td>
-          <td>${row.timeOut}</td>
-          <td><span class="badge ${badgeClass} px-2 py-1">${row.status}</span></td>
-          <td>-</td>
-          <td>-</td>
-        </tr>`;
-      });
-    }).getTeacherAttendanceReportRange(currentUser.email, startDate, endDate);
+    const list = await apiCall('getTeacherAttendanceReportRange', { email: currentUser.email, startDate, endDate }, 'GET');
+    
+    const tbody = document.getElementById('attendanceTableBody');
+    tbody.innerHTML = '';
+    if (!list || list.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">Tidak ada data rekap pada rentang tanggal tersebut.</td></tr>';
+      return;
+    }
+    list.forEach(row => {
+      let rowStyle = row.isHoliday ? 'style="background-color: #f8d7da; color: #842029;"' : '';
+      let badgeClass = row.isHoliday ? 'bg-danger text-white' : 'bg-primary-subtle text-primary';
+      if (row.status.includes('Hadir')) badgeClass = 'bg-success-subtle text-success';
+      
+      tbody.innerHTML += `<tr ${rowStyle}>
+        <td><strong>${row.date}</strong></td>
+        <td>${currentUser.name}</td>
+        <td>${row.timeIn}</td>
+        <td>${row.timeOut}</td>
+        <td><span class="badge ${badgeClass} px-2 py-1">${row.status}</span></td>
+        <td>-</td>
+        <td>-</td>
+      </tr>`;
+    });
   }
 
-  function printAttendancePDF() {
+  async function printAttendancePDF() {
     const startDate = document.getElementById('filterStartDate').value;
     const endDate = document.getElementById('filterEndDate').value;
+    let data;
     if (startDate && endDate) {
       document.getElementById('printPeriodRange').innerText = `${startDate} s.d. ${endDate}`;
-      google.script.run.withSuccessHandler(renderPrintTable).getTeacherAttendanceReportRange(currentUser.email, startDate, endDate);
+      data = await apiCall('getTeacherAttendanceReportRange', { email: currentUser.email, startDate, endDate }, 'GET');
     } else {
       const now = new Date();
       const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
       const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
       document.getElementById('printPeriodRange').innerText = `${firstDay} s.d. ${lastDay}`;
-      google.script.run.withSuccessHandler(renderPrintTable).getTeacherAttendanceReportRange(currentUser.email, firstDay, lastDay);
+      data = await apiCall('getTeacherAttendanceReportRange', { email: currentUser.email, startDate: firstDay, endDate: lastDay }, 'GET');
     }
+    renderPrintTable(data);
   }
 
   function renderPrintTable(data) {
@@ -1305,60 +1322,50 @@
     }, 300);
   }
 
-  function updateAttendanceStatus(rowIndex, newStatus) {
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      loadAttendanceData();
-      renderChart();
-    }).updateAttendanceAdmin(rowIndex, newStatus);
+  async function updateAttendanceStatus(rowIndex, newStatus) {
+    const res = await apiCall('updateAttendanceAdmin', { rowIndex, newStatus });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    loadAttendanceData();
+    renderChart();
   }
 
-  function renderChart() {
-    google.script.run.withSuccessHandler(stats => {
-      const ctx = document.getElementById('attendanceChart').getContext('2d');
-      if (chartInstance) chartInstance.destroy();
-      chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Hadir', 'Izin', 'Sakit', 'Tugas Luar', 'Alfa'],
-          datasets: [{
-            label: 'Jumlah Guru',
-            data: [stats.hadir, stats.izin, stats.sakit, stats.tugasLuar, stats.alfa],
-            backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444'],
-            borderWidth: 0,
-            borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false } // Menyembunyikan legenda karena label sudah ada di bawah sumbu X
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                stepSize: 1 // Memastikan skala angka bulat
-              }
-            }
-          }
-        }
-      });
-    }).getAdminStats();
+  async function renderChart() {
+    const stats = await apiCall('getAdminStats', {}, 'GET');
+    const ctx = document.getElementById('attendanceChart').getContext('2d');
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Hadir', 'Izin', 'Sakit', 'Tugas Luar', 'Alfa'],
+        datasets: [{
+          label: 'Jumlah Guru',
+          data: [stats.hadir || 0, stats.izin || 0, stats.sakit || 0, stats.tugasLuar || 0, stats.alfa || 0],
+          backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444'],
+          borderWidth: 0,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      }
+    });
   }
 
-  function loadTeachersDropdown() {
-    google.script.run.withSuccessHandler(teachers => {
-      const select = document.getElementById('bpjsTargetTeacher');
-      select.innerHTML = '<option value="">-- Pilih Guru --</option>';
+  async function loadTeachersDropdown() {
+    const teachers = await apiCall('getTeachersList', {}, 'GET');
+    const select = document.getElementById('bpjsTargetTeacher');
+    select.innerHTML = '<option value="">-- Pilih Guru --</option>';
+    if (Array.isArray(teachers)) {
       teachers.forEach(t => {
         select.innerHTML += `<option value="${t.email}|${t.name}">${t.name} (${t.email})</option>`;
       });
-      select.innerHTML += `<option value="${currentUser.email}|${currentUser.name}">Diri Sendiri (${currentUser.name})</option>`;
-    }).getTeachersList();
+    }
+    select.innerHTML += `<option value="${currentUser.email}|${currentUser.name}">Diri Sendiri (${currentUser.name})</option>`;
   }
 
-  function submitBPJS() {
+  async function submitBPJS() {
     const targetVal = document.getElementById('bpjsTargetTeacher').value;
     if (!targetVal) return showPopUp('Pilih guru terlebih dahulu.', 'error');
     const parts = targetVal.split('|');
@@ -1367,42 +1374,37 @@
     const amount = document.getElementById('bpjsAmount').value;
     
     if(!amount) return showPopUp('Harap isi nominal BPJS.', 'error');
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      loadBPJSData();
-      const isAdminMurni = (currentUser.role === 'Admin' && !adminSession);
-      if (isAdminMurni) loadAdminBPJSRecap();
-      loadUnpaidBPJSWidget();
-    }).payBPJS(parts[0], parts[1], month, year, amount);
+    const res = await apiCall('payBPJS', { email: parts[0], name: parts[1], month, year, amount });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    loadBPJSData();
+    const isAdminMurni = (currentUser.role === 'Admin' && !adminSession);
+    if (isAdminMurni) loadAdminBPJSRecap();
+    loadUnpaidBPJSWidget();
   }
 
-  function loadBPJSData() {
+  async function loadBPJSData() {
     const selectedMonthFilter = document.getElementById('historyBpjsFilterMonth').value;
-    google.script.run.withSuccessHandler(data => {
-      const tbody = document.getElementById('bpjsTableBody');
-      tbody.innerHTML = '';
-      
-      let filteredData = data;
-      if (selectedMonthFilter) {
-        filteredData = data.filter(row => String(row.month).trim().toLowerCase() === String(selectedMonthFilter).trim().toLowerCase());
-      }
-      if (filteredData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">Belum ada data rekapan BPJS untuk filter ini.</td></tr>';
-        return;
-      }
-      filteredData.forEach(row => {
-        tbody.innerHTML += `<tr>
-          <td>${row.name}</td><td>${row.month} ${row.year}</td>
-          <td><span class="badge bg-success-subtle text-success px-2 py-1">${row.status}</span></td>
-          <td>${row.payDate}</td><td>Rp ${Number(row.amount).toLocaleString('id-ID')}</td>
-        </tr>`;
-      });
-    }).getBPJSData(currentUser.email, currentUser.role === 'Admin', currentUser.canRecapBPJS);
+    const data = await apiCall('getBPJSData', { email: currentUser.email, isAdmin: currentUser.role === 'Admin', canRecapBPJS: currentUser.canRecapBPJS }, 'GET');
+    const tbody = document.getElementById('bpjsTableBody');
+    tbody.innerHTML = '';
+    
+    let filteredData = data || [];
+    if (selectedMonthFilter) {
+      filteredData = filteredData.filter(row => String(row.month).trim().toLowerCase() === String(selectedMonthFilter).trim().toLowerCase());
+    }
+    if (filteredData.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">Belum ada data rekapan BPJS untuk filter ini.</td></tr>';
+      return;
+    }
+    filteredData.forEach(row => {
+      tbody.innerHTML += `<tr>
+        <td>${row.name}</td><td>${row.month} ${row.year}</td>
+        <td><span class="badge bg-success-subtle text-success px-2 py-1">${row.status}</span></td>
+        <td>${row.payDate}</td><td>Rp ${Number(row.amount).toLocaleString('id-ID')}</td>
+      </tr>`;
+    });
   }
 
-  // ----------------------------------------------------
-  // FUNGSI JAVASCRIPT ABSENSI SISWA OTOMATIS BERDASARKAN KELAS
-  // ----------------------------------------------------
   function populateStudentAttClasses() {
     const classes = [...new Set(globalStudents.map(s => s.kelas))];
     const classSelectAtt = document.getElementById('studentAttClass');
@@ -1421,7 +1423,7 @@
     }
   }
 
-  function loadStudentAttInputListByClass() {
+  async function loadStudentAttInputListByClass() {
     const kelas = document.getElementById('studentAttClass').value;
     const area = document.getElementById('studentAttInputArea');
     const tbody = document.getElementById('studentAttTableBody');
@@ -1431,34 +1433,33 @@
       return;
     }
     
-    google.script.run.withSuccessHandler(students => {
-      area.classList.remove('d-none');
-      tbody.innerHTML = '';
-      
-      if (!students || students.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">Tidak ada data siswa untuk kelas ini.</td></tr>';
-        return;
-      }
-      
-      students.forEach((st, index) => {
-        tbody.innerHTML += `<tr>
-          <td><span class="badge bg-secondary">No. ${index + 1}</span></td>
-          <td>${st.nisn}</td>
-          <td><strong>${st.nama}</strong></td>
-          <td class="text-center">
-            <select class="form-select form-select-sm student-status-input" data-nisn="${st.nisn}">
-              <option value="Hadir" selected>Hadir</option>
-              <option value="Izin">Izin</option>
-              <option value="Sakit">Sakit</option>
-              <option value="Alfa">Alfa</option>
-            </select>
-          </td>
-        </tr>`;
-      });
-    }).getStudentsByClass(kelas);
+    const students = await apiCall('getStudentsByClass', { kelas }, 'GET');
+    area.classList.remove('d-none');
+    tbody.innerHTML = '';
+    
+    if (!students || students.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">Tidak ada data siswa untuk kelas ini.</td></tr>';
+      return;
+    }
+    
+    students.forEach((st, index) => {
+      tbody.innerHTML += `<tr>
+        <td><span class="badge bg-secondary">No. ${index + 1}</span></td>
+        <td>${st.nisn}</td>
+        <td><strong>${st.nama}</strong></td>
+        <td class="text-center">
+          <select class="form-select form-select-sm student-status-input" data-nisn="${st.nisn}">
+            <option value="Hadir" selected>Hadir</option>
+            <option value="Izin">Izin</option>
+            <option value="Sakit">Sakit</option>
+            <option value="Alfa">Alfa</option>
+          </select>
+        </td>
+      </tr>`;
+    });
   }
 
-function saveStudentAttendance() {
+  async function saveStudentAttendance() {
     const kelas = document.getElementById('studentAttClass').value;
     const dateStr = document.getElementById('studentAttDate').value;
     
@@ -1466,17 +1467,14 @@ function saveStudentAttendance() {
       return showPopUp('Pilih kelas dan tanggal absensi terlebih dahulu.', 'error');
     }
     
-    // Tampilkan pop-up loading
     const titleEl = document.getElementById('appModalTitle');
     const msgEl = document.getElementById('appModalMessage');
     const iconContainer = document.getElementById('modalIconContainer');
-    const modalBtn = document.querySelector('#appModal .modal-content button'); // Ambil tombol di dalam modal
+    const modalBtn = document.querySelector('#appModal .modal-content button');
     
     titleEl.innerText = 'Menyimpan...';
     msgEl.innerText = 'Mohon tunggu, data absensi siswa sedang disimpan ke sistem.';
     iconContainer.innerHTML = `<div class="d-inline-flex p-3 rounded-circle bg-primary-subtle text-primary"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>`;
-    
-    // Sembunyikan tombol "Mengerti" saat loading
     if (modalBtn) modalBtn.style.display = 'none';
     
     const myModal = new bootstrap.Modal(document.getElementById('appModal'));
@@ -1488,16 +1486,13 @@ function saveStudentAttendance() {
       attendanceData[nisn] = select.value;
     });
     
-    google.script.run.withSuccessHandler(res => {
-      // Munculkan kembali tombol "Mengerti" sebelum modal ditutup atau saat pesan sukses muncul
-      if (modalBtn) modalBtn.style.display = 'block';
-      
-      myModal.hide();
-      showPopUp(res.message, res.success ? 'success' : 'error');
-    }).submitStudentAttendance(kelas, dateStr, attendanceData);
+    const res = await apiCall('submitStudentAttendance', { kelas, dateStr, attendanceData });
+    if (modalBtn) modalBtn.style.display = 'block';
+    myModal.hide();
+    showPopUp(res.message, res.success ? 'success' : 'error');
   }
 
-  function fetchStudentAttendanceRecap() {
+  async function fetchStudentAttendanceRecap() {
     const kelas = document.getElementById('recapStudentClass').value;
     const month = document.getElementById('recapStudentMonth').value;
     const year = document.getElementById('recapStudentYear').value;
@@ -1506,40 +1501,39 @@ function saveStudentAttendance() {
       return showPopUp('Pilih kelas terlebih dahulu.', 'error');
     }
     
-    google.script.run.withSuccessHandler(res => {
-      const tbody = document.getElementById('recapStudentTableBody');
-      tbody.innerHTML = '';
+    const res = await apiCall('getStudentAttendanceRecap', { kelas, month, year }, 'GET');
+    const tbody = document.getElementById('recapStudentTableBody');
+    tbody.innerHTML = '';
+    
+    if (!res || !res.students || res.students.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">Tidak ada data siswa.</td></tr>';
+      return;
+    }
+    
+    res.students.forEach(st => {
+      const records = res.attendanceMap[st.nisn] || {};
+      let hadir = 0, izin = 0, sakit = 0, alfa = 0;
       
-      if (!res.students || res.students.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">Tidak ada data siswa.</td></tr>';
-        return;
-      }
-      
-      res.students.forEach(st => {
-        const records = res.attendanceMap[st.nisn] || {};
-        let hadir = 0, izin = 0, sakit = 0, alfa = 0;
-        
-        Object.values(records).forEach(stt => {
-          const s = String(stt).toLowerCase();
-          if (s.includes('hadir')) hadir++;
-          else if (s.includes('izin')) izin++;
-          else if (s.includes('sakit')) sakit++;
-          else if (s.includes('alfa')) alfa++;
-        });
-        
-        tbody.innerHTML += `<tr>
-          <td>${st.nisn}</td>
-          <td class="text-start"><strong>${st.nama}</strong></td>
-          <td><span class="badge bg-success">${hadir}</span></td>
-          <td><span class="badge bg-warning text-dark">${izin}</span></td>
-          <td><span class="badge bg-info text-dark">${sakit}</span></td>
-          <td><span class="badge bg-danger">${alfa}</span></td>
-        </tr>`;
+      Object.values(records).forEach(stt => {
+        const s = String(stt).toLowerCase();
+        if (s.includes('hadir')) hadir++;
+        else if (s.includes('izin')) izin++;
+        else if (s.includes('sakit')) sakit++;
+        else if (s.includes('alfa')) alfa++;
       });
-    }).getStudentAttendanceRecap(kelas, month, year);
+      
+      tbody.innerHTML += `<tr>
+        <td>${st.nisn}</td>
+        <td class="text-start"><strong>${st.nama}</strong></td>
+        <td><span class="badge bg-success">${hadir}</span></td>
+        <td><span class="badge bg-warning text-dark">${izin}</span></td>
+        <td><span class="badge bg-info text-dark">${sakit}</span></td>
+        <td><span class="badge bg-danger">${alfa}</span></td>
+      </tr>`;
+    });
   }
 
-  function submitStudentGrade(nisn, name, btnElement) {
+  async function submitStudentGrade(nisn, name, btnElement) {
     const subject = document.getElementById('gradeSubject').value;
     if (!subject) return showPopUp('Pilih Mata Pelajaran terlebih dahulu di atas.', 'error');
     const row = btnElement.closest('tr');
@@ -1549,10 +1543,10 @@ function saveStudentAttendance() {
       const mat = row.querySelectorAll('.uh-mat')[idx].value || '-';
       return `${el.value || 0} (${mat})`;
     });
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      loadGradeData();
-    }).saveGrade(nisn, name, subject, uhVals, uts, uas);
+
+    const res = await apiCall('saveGrade', { nisn, name, subject, uhVals, uts, uas });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    loadGradeData();
   }
 
   function resetUHInputsOnSelect() {
@@ -1572,11 +1566,9 @@ function saveStudentAttendance() {
     showPopUp(`Materi UH${uhIndex} berhasil diterapkan serentak ke seluruh siswa di kelas ini.`, 'success');
   }
 
-  function loadGradeData() {
-    google.script.run.withSuccessHandler(data => {
-      globalGrades = data;
-      renderGradeTableFiltered();
-    }).getGrades();
+  async function loadGradeData() {
+    globalGrades = await apiCall('getGrades', {}, 'GET') || [];
+    renderGradeTableFiltered();
   }
 
   function renderGradeTableFiltered() {
@@ -1607,36 +1599,35 @@ function saveStudentAttendance() {
     }
   }
 
-  function loadStudentData() {
-    google.script.run.withSuccessHandler(students => {
-      globalStudents = students;
-      populateStudentAttClasses();
-      const tbody = document.getElementById('studentTableBody');
-      if (tbody) {
-        tbody.innerHTML = '';
-        if (students.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Belum ada data siswa. Silakan upload via Excel atau tambahkan.</td></tr>';
-        } else {
-          students.forEach(st => {
-            tbody.innerHTML += `<tr><td>${st.nisn}</td><td>${st.nama}</td><td>${st.kelas}</td></tr>`;
-          });
-        }
+  async function loadStudentData() {
+    const students = await apiCall('getStudentsList', {}, 'GET');
+    globalStudents = students || [];
+    populateStudentAttClasses();
+    const tbody = document.getElementById('studentTableBody');
+    if (tbody) {
+      tbody.innerHTML = '';
+      if (globalStudents.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" class="text-center text-muted py-3">Belum ada data siswa. Silakan upload via Excel atau tambahkan.</td></tr>';
+      } else {
+        globalStudents.forEach(st => {
+          tbody.innerHTML += `<tr><td>${st.nisn}</td><td>${st.nama}</td><td>${st.kelas}</td></tr>`;
+        });
       }
-      const classes = [...new Set(students.map(s => s.kelas))];
-      const classSelectInput = document.getElementById('inputGradeClass');
-      const classSelectFilter = document.getElementById('filterGradeClass');
-      
-      classSelectInput.innerHTML = '<option value="">-- Pilih Kelas --</option>';
-      classSelectFilter.innerHTML = '<option value="">-- Semua Kelas --</option>';
-      
-      classes.forEach(cls => {
-        if(cls) {
-          classSelectInput.innerHTML += `<option value="${cls}">${cls}</option>`;
-          classSelectFilter.innerHTML += `<option value="${cls}">${cls}</option>`;
-        }
-      });
-      loadGradeData();
-    }).getStudentsList();
+    }
+    const classes = [...new Set(globalStudents.map(s => s.kelas))];
+    const classSelectInput = document.getElementById('inputGradeClass');
+    const classSelectFilter = document.getElementById('filterGradeClass');
+    
+    classSelectInput.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+    classSelectFilter.innerHTML = '<option value="">-- Semua Kelas --</option>';
+    
+    classes.forEach(cls => {
+      if(cls) {
+        classSelectInput.innerHTML += `<option value="${cls}">${cls}</option>`;
+        classSelectFilter.innerHTML += `<option value="${cls}">${cls}</option>`;
+      }
+    });
+    loadGradeData();
   }
 
   function renderStudentInputList() {
@@ -1697,102 +1688,85 @@ function saveStudentAttendance() {
     });
   }
 
-  function loadTeachersList() {
+  async function loadTeachersList() {
     const tbody = document.getElementById('adminTeacherTableBody');
     if (!tbody) return;
 
     tbody.innerHTML = '<tr><td colspan="5" class="text-center py-3"><i class="fa-solid fa-spinner fa-spin me-2"></i>Memuat data pengguna...</td></tr>';
 
-    google.script.run
-      .withSuccessHandler(function(users) {
-        tbody.innerHTML = '';
-        if (!Array.isArray(users) || users.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">Tidak ada data pengguna.</td></tr>';
-          return;
-        }
+    const users = await apiCall('getTeachersList', {}, 'GET');
+    tbody.innerHTML = '';
+    if (!Array.isArray(users) || users.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-3">Tidak ada data pengguna.</td></tr>';
+      return;
+    }
 
-        users.forEach(function(user) {
-          const emailArg = encodeURIComponent(user.email);
-          const nameArg = encodeURIComponent(user.name);
-          const row = document.createElement('tr');
+    users.forEach(function(user) {
+      const emailArg = encodeURIComponent(user.email);
+      const nameArg = encodeURIComponent(user.name);
+      const row = document.createElement('tr');
 
-          const nameCell = document.createElement('td');
-          nameCell.textContent = user.name || user.email;
-          const emailCell = document.createElement('td');
-          const emailSmall = document.createElement('small');
-          emailSmall.className = 'text-muted';
-          emailSmall.textContent = user.email;
-          emailCell.appendChild(emailSmall);
+      const nameCell = document.createElement('td');
+      nameCell.textContent = user.name || user.email;
+      const emailCell = document.createElement('td');
+      const emailSmall = document.createElement('small');
+      emailSmall.className = 'text-muted';
+      emailSmall.textContent = user.email;
+      emailCell.appendChild(emailSmall);
 
-          const roleCell = document.createElement('td');
-          const roleSelect = document.createElement('select');
-          roleSelect.className = 'form-select form-select-sm';
-          ['Guru', 'Kepala Sekolah', 'Bendahara', 'Admin'].forEach(function(role) {
-            const option = document.createElement('option');
-            option.value = role;
-            option.textContent = role;
-            option.selected = user.role === role;
-            roleSelect.appendChild(option);
-          });
-          roleSelect.addEventListener('change', function() {
-            updateTeacherRole(user.email, this.value);
-          });
-          roleCell.appendChild(roleSelect);
+      const roleCell = document.createElement('td');
+      const roleSelect = document.createElement('select');
+      roleSelect.className = 'form-select form-select-sm';
+      ['Guru', 'Kepala Sekolah', 'Bendahara', 'Admin'].forEach(function(role) {
+        const option = document.createElement('option');
+        option.value = role;
+        option.textContent = role;
+        option.selected = user.role === role;
+        roleSelect.appendChild(option);
+      });
+      roleSelect.addEventListener('change', function() {
+        updateTeacherRole(user.email, this.value);
+      });
+      roleCell.appendChild(roleSelect);
 
-          const bpjsCell = document.createElement('td');
-          const bpjsCheck = document.createElement('input');
-          bpjsCheck.type = 'checkbox';
-          bpjsCheck.className = 'form-check-input me-1';
-          bpjsCheck.checked = !!user.canRecapBPJS;
-          bpjsCheck.addEventListener('change', function() {
-            toggleBPJS(user.email, this.checked);
-          });
-          bpjsCell.appendChild(bpjsCheck);
-          bpjsCell.appendChild(document.createTextNode(' Boleh'));
+      const bpjsCell = document.createElement('td');
+      const bpjsCheck = document.createElement('input');
+      bpjsCheck.type = 'checkbox';
+      bpjsCheck.className = 'form-check-input me-1';
+      bpjsCheck.checked = !!user.canRecapBPJS;
+      bpjsCheck.addEventListener('change', function() {
+        toggleBPJS(user.email, this.checked);
+      });
+      bpjsCell.appendChild(bpjsCheck);
+      bpjsCell.appendChild(document.createTextNode(' Boleh'));
 
-          const actionCell = document.createElement('td');
-          const loginButton = document.createElement('button');
-          loginButton.type = 'button';
-          loginButton.className = 'btn btn-sm btn-info text-white';
-          loginButton.innerHTML = '<i class="fa-solid fa-right-to-bracket me-1"></i> Login';
-          loginButton.addEventListener('click', function() {
-            loginAsTeacher(decodeURIComponent(emailArg), decodeURIComponent(nameArg), !!user.canRecapBPJS, user.role);
-          });
-          actionCell.appendChild(loginButton);
+      const actionCell = document.createElement('td');
+      const loginButton = document.createElement('button');
+      loginButton.type = 'button';
+      loginButton.className = 'btn btn-sm btn-info text-white';
+      loginButton.innerHTML = '<i class="fa-solid fa-right-to-bracket me-1"></i> Login';
+      loginButton.addEventListener('click', function() {
+        loginAsTeacher(decodeURIComponent(emailArg), decodeURIComponent(nameArg), !!user.canRecapBPJS, user.role);
+      });
+      actionCell.appendChild(loginButton);
 
-          row.append(nameCell, emailCell, roleCell, bpjsCell, actionCell);
-          tbody.appendChild(row);
-        });
-
-        console.log('Jumlah akun pengguna terbaca:', users.length);
-      })
-      .withFailureHandler(function(error) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-3">Gagal memuat pengguna: ' +
-          escapeHtmlForUsers(error && error.message ? error.message : error) + '</td></tr>';
-        console.error('getTeachersList:', error);
-      })
-      .getTeachersList();
-  }
-
-  function escapeHtmlForUsers(value) {
-    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch) {
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+      row.append(nameCell, emailCell, roleCell, bpjsCell, actionCell);
+      tbody.appendChild(row);
     });
   }
 
-  // Fungsi penghubung ke Google Apps Script untuk menyimpan perubahan role
-  function updateTeacherRole(email, newRole) {
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      loadTeachersList();
-    }).updateTeacherRole(email, newRole);
+  async function updateTeacherRole(email, newRole) {
+    const res = await apiCall('updateTeacherRole', { email, newRole });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    loadTeachersList();
   }
 
-  function toggleBPJS(email, status) {
-    google.script.run.withSuccessHandler(res => showPopUp(res.message, res.success ? 'success' : 'error')).toggleBPJSPermission(email, status);
+  async function toggleBPJS(email, status) {
+    const res = await apiCall('toggleBPJSPermission', { email, status });
+    showPopUp(res.message, res.success ? 'success' : 'error');
   }
 
-  function submitAddTeacher() {
+  async function submitAddTeacher() {
     const email = document.getElementById('addTeacherEmail').value;
     const pass = document.getElementById('addTeacherPass').value;
     const name = document.getElementById('addTeacherName').value;
@@ -1802,24 +1776,22 @@ function saveStudentAttendance() {
       return showPopUp('Lengkapi seluruh formulir tambah pengguna.', 'error');
     }
 
-    google.script.run.withSuccessHandler(res => {
-      showPopUp(res.message, res.success ? 'success' : 'error');
-      if (res.success) {
-        // Reset input formulir setelah berhasil
-        document.getElementById('addTeacherEmail').value = '';
-        document.getElementById('addTeacherPass').value = '';
-        document.getElementById('addTeacherName').value = '';
-        document.getElementById('addTeacherRole').value = 'Guru';
-        loadTeachersList();
-      }
-    }).addTeacher(email, pass, name, role);
+    const res = await apiCall('addTeacher', { email, pass, name, role });
+    showPopUp(res.message, res.success ? 'success' : 'error');
+    if (res.success) {
+      document.getElementById('addTeacherEmail').value = '';
+      document.getElementById('addTeacherPass').value = '';
+      document.getElementById('addTeacherName').value = '';
+      document.getElementById('addTeacherRole').value = 'Guru';
+      loadTeachersList();
+    }
   }
 
   function handleExcelUpload() {
     const file = document.getElementById('excelFileInput').files[0];
     if (!file) return showPopUp('Pilih file Excel terlebih dahulu.', 'error');
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = async function(e) {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
       const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -1830,18 +1802,13 @@ function saveStudentAttendance() {
         nama: String(row.Nama || row.nama || '').trim(),
         kelas: String(row.Kelas || row.kelas || '').trim()
       }));
-      google.script.run.withSuccessHandler(res => {
-        showPopUp(res.message, res.success ? 'success' : 'error');
-        loadStudentData();
-      }).importStudentsBatch(parsed);
+
+      const res = await apiCall('importStudentsBatch', { students: parsed });
+      showPopUp(res.message, res.success ? 'success' : 'error');
+      loadStudentData();
     };
     reader.readAsArrayBuffer(file);
   }
-
-
-  // ======================================================
-  // JAVASCRIPT JURNAL HARIAN GURU
-  // ======================================================
 
   var globalJournalRows = [];
 
@@ -1876,31 +1843,25 @@ function saveStudentAttendance() {
     loadDailyJournal();
   }
 
-  function loadJournalTeacherFilter() {
-    google.script.run
-      .withSuccessHandler(function(res) {
-        if (!res || !res.success) {
-          showPopUp(res ? res.message : 'Gagal memuat daftar guru.', 'error');
-          return;
-        }
-        var select = document.getElementById('journalTeacherFilter');
-        var previous = select.value;
-        select.innerHTML = '<option value="">Semua Guru</option>';
-        (res.data || []).forEach(function(guru) {
-          var option = document.createElement('option');
-          option.value = guru.email;
-          option.textContent = guru.nama;
-          select.appendChild(option);
-        });
-        select.value = previous;
-      })
-      .withFailureHandler(function(err) {
-        showPopUp(err.message || 'Gagal memuat daftar guru.', 'error');
-      })
-      .getJournalTeacherList(currentUser.email);
+  async function loadJournalTeacherFilter() {
+    const res = await apiCall('getJournalTeacherList', { email: currentUser.email }, 'GET');
+    if (!res || !res.success) {
+      showPopUp(res ? res.message : 'Gagal memuat daftar guru.', 'error');
+      return;
+    }
+    var select = document.getElementById('journalTeacherFilter');
+    var previous = select.value;
+    select.innerHTML = '<option value="">Semua Guru</option>';
+    (res.data || []).forEach(function(guru) {
+      var option = document.createElement('option');
+      option.value = guru.email;
+      option.textContent = guru.nama;
+      select.appendChild(option);
+    });
+    select.value = previous;
   }
 
-  function loadDailyJournal() {
+  async function loadDailyJournal() {
     if (!currentUser || !currentUser.email) return;
 
     var isManager = currentUser.role === 'Kepala Sekolah' || currentUser.role === 'Admin';
@@ -1916,21 +1877,14 @@ function saveStudentAttendance() {
     var tbody = document.getElementById('journalTableBody');
     tbody.innerHTML = '<tr><td colspan="8" class="text-center">Memuat data...</td></tr>';
 
-    google.script.run
-      .withSuccessHandler(function(res) {
-        if (!res || !res.success) {
-          tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">' +
-            journalEscape(res ? res.message : 'Gagal memuat jurnal.') + '</td></tr>';
-          return;
-        }
-        globalJournalRows = res.data || [];
-        renderDailyJournal();
-      })
-      .withFailureHandler(function(err) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">' +
-          journalEscape(err.message || 'Terjadi kesalahan.') + '</td></tr>';
-      })
-      .getDailyJournals(currentUser.email, startDate, endDate, filterEmail);
+    const res = await apiCall('getDailyJournals', { email: currentUser.email, startDate, endDate, filterEmail }, 'GET');
+    if (!res || !res.success) {
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">' +
+        journalEscape(res ? res.message : 'Gagal memuat jurnal.') + '</td></tr>';
+      return;
+    }
+    globalJournalRows = res.data || [];
+    renderDailyJournal();
   }
 
   function renderDailyJournal() {
@@ -1964,7 +1918,7 @@ function saveStudentAttendance() {
       'Total jurnal: ' + globalJournalRows.length;
   }
 
-  function submitDailyJournal() {
+  async function submitDailyJournal() {
     if (!currentUser || !currentUser.email) return;
 
     var journal = {
@@ -1981,20 +1935,14 @@ function saveStudentAttendance() {
       return;
     }
 
-    google.script.run
-      .withSuccessHandler(function(res) {
-        if (res && res.success) {
-          showPopUp(res.message, 'success');
-          resetJournalForm();
-          loadDailyJournal();
-        } else {
-          showPopUp(res ? res.message : 'Gagal menyimpan jurnal.', 'error');
-        }
-      })
-      .withFailureHandler(function(err) {
-        showPopUp(err.message || 'Gagal menyimpan jurnal.', 'error');
-      })
-      .saveDailyJournal(currentUser.email, journal);
+    const res = await apiCall('saveDailyJournal', { email: currentUser.email, journal });
+    if (res && res.success) {
+      showPopUp(res.message, 'success');
+      resetJournalForm();
+      loadDailyJournal();
+    } else {
+      showPopUp(res ? res.message : 'Gagal menyimpan jurnal.', 'error');
+    }
   }
 
   function editDailyJournal(index) {
@@ -2024,24 +1972,18 @@ function saveStudentAttendance() {
     document.getElementById('journalFollowup').value = '';
   }
 
-  function removeDailyJournal(index) {
+  async function removeDailyJournal(index) {
     var row = globalJournalRows[index];
     if (!row) return;
     if (!confirm('Yakin ingin menghapus jurnal tanggal ' + row.tanggal + '?')) return;
 
-    google.script.run
-      .withSuccessHandler(function(res) {
-        if (res && res.success) {
-          showPopUp(res.message, 'success');
-          loadDailyJournal();
-        } else {
-          showPopUp(res ? res.message : 'Gagal menghapus jurnal.', 'error');
-        }
-      })
-      .withFailureHandler(function(err) {
-        showPopUp(err.message || 'Gagal menghapus jurnal.', 'error');
-      })
-      .deleteDailyJournal(currentUser.email, row.id);
+    const res = await apiCall('deleteDailyJournal', { email: currentUser.email, journalId: row.id });
+    if (res && res.success) {
+      showPopUp(res.message, 'success');
+      loadDailyJournal();
+    } else {
+      showPopUp(res ? res.message : 'Gagal menghapus jurnal.', 'error');
+    }
   }
 
   function printDailyJournal() {
